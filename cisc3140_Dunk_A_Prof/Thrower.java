@@ -10,6 +10,7 @@ public class Thrower {
 
 	float power;
 	float angle;
+	Velocity velocity;
 	
 	//could implement via Singleton, but then what if we wanted two throwers?
 	//also bad for MVC pattern as people want to misuse statics. Doubly bad for threading.
@@ -18,7 +19,8 @@ public class Thrower {
 	//one should define it for every class, to avoid weird errors of vaguery. 
 	public Thrower(){
 		power = 0.0f;
-		angle = 0.0f;		
+		angle = 0.0f;
+		
 	}
 	
 	
@@ -43,7 +45,7 @@ public class Thrower {
 		//uses the magic of everything is a reference in Java to deal with handing this 
 		//back to whatever called it. Makes it so that we don't have to deal with any actual responses
 		//in the thrower class. It's very convenient!
-		return new Thrown(power, angle); // throw that ball, using current power/angle. 	
+		return new Thrown(power, angle, velocity ); // throw that ball, using current power/angle. 	
 	}
 		
 }

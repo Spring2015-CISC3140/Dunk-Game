@@ -1,0 +1,2 @@
+// resolving that funky build error: 
+http://stackoverflow.com/questions/11235827/eclipse-error-could-not-find-or-load-main-class

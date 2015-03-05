@@ -6,6 +6,9 @@ import java.util.Observable;
 *
 * Model class
 * The exciting part, wooo!
+* Should probably be a superclass with no actual objects,
+* but used for subclassing. interface doesn't work because can't ensure they have things
+* we need to have, like variables. There's also the extends Observable thing
 *
 **/
 
@@ -21,5 +24,9 @@ public class Model extends Observable {
 	Thrower thrower;
 	Target target;
 	Thrown thrown; // need a better name, thrown is too close to throw.
+	
+	public Model(){
+		;//default constructor
+	}
 	
 }
