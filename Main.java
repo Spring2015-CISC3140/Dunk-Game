@@ -18,7 +18,10 @@ public class Main extends Application {
         primaryStage.setHeight(600);
         primaryStage.setTitle("Dunk-A-Prof");
         
-        Scene scene=new Scene(new StartMenu());
+        
+        StartMenu startMenu=new StartMenu();
+        Scene scene=new Scene(startMenu);
+        
         primaryStage.setScene(scene);
         
         primaryStage.show();
