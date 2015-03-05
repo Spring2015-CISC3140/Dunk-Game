@@ -1,4 +1,4 @@
-package CISC3140_Dunk_A_Prof;
+package cisc3140_Dunk_A_Prof;
 
 /**
 *
@@ -17,6 +17,8 @@ public class Thrown {
 		;
 	}
 	
-	public Thrown(float initialX, float inttial y, Velocity initialVelocity)
+	public Thrown(float initialX, float initialY, Velocity initialVelocity){
+		;
+	}
 	
 }

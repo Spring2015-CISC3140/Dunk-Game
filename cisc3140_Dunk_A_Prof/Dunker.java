@@ -1,6 +1,4 @@
-package CISC3140_Dunk_A_Prof;
-
-import Jeff_Ricks.cisc3120.asteroids.Asteroids;
+package cisc3140_Dunk_A_Prof;
 
 /**
 *

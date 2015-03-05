@@ -1,10 +1,11 @@
+package cisc3140_Dunk_A_Prof;
 /**
 * 
 * Controller code
 * 
 **/
 
-public void Controller {
+public class Controller {
 	
 	Model model;
 	
@@ -13,6 +14,6 @@ public void Controller {
 	}
 	
 	public Controller(Model model){
-		this. 
+		this.model = model;
 	}
 }

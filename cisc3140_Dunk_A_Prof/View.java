@@ -1,4 +1,4 @@
-package CISC3140_Dunk_A_Prof;
+package cisc3140_Dunk_A_Prof;
 
 import java.util.Observable;
 import java.util.Observer;
