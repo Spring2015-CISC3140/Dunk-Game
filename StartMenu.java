@@ -42,6 +42,8 @@ public class StartMenu extends Pane{
     
     private AnchorPane apane=new AnchorPane();//this will be the pane we will add everything to
     
+    private CharacterPreview characterPreview;//this is a pane which will allow for the preview of characters, also setCharacterPreview() will make an instence of this object
+    
     //the following are url's to sounds to be used later
         private URL clickingResource;
         private AudioClip click;
@@ -64,11 +66,14 @@ public class StartMenu extends Pane{
       
        characterSelection();
        
+       setCharacterPreview();//sets the character preview object to the current characters selected state
+       
        super.getChildren().add(apane);
+       
        
        //connection urls to local files, to be opened as sounds
        try{
-            clickingResource=new URL("file","localhost","/Users/Alex/Documents/CISC3140/ClickingSounds/switch1.wav" );
+            clickingResource= getClass().getResource("switch1.wav");//using getClass().getResource() to open a classPath file
             click=new AudioClip(clickingResource.toString());
        }
        catch(Exception e){
@@ -218,6 +223,8 @@ public class StartMenu extends Pane{
            trustee=false;
            startGame.setDisable(false);
            clickService.start();//starts the thread in the click service class, to make a sound
+           
+           setCharacterPreview();
         });
        
         deenPane.setOnMouseClicked(e ->{
@@ -230,6 +237,7 @@ public class StartMenu extends Pane{
            trustee=false;
            startGame.setDisable(false);
            clickService.start();//starts the thread in the click service class, to make a sound
+           
         });
         
         trusteePane.setOnMouseClicked(e ->{
@@ -242,6 +250,7 @@ public class StartMenu extends Pane{
            trustee=true;
            startGame.setDisable(false);
            clickService.start();//starts the thread in the click service class, to make a sound
+           
         });
        
        
@@ -253,6 +262,21 @@ public class StartMenu extends Pane{
        apane.getChildren().add(characterPane);
         
     }
+    
+    void setCharacterPreview(){
+        //we first must check if the characterPreview node was alreaded added to the main AnchorPane, and delete it if it was
+        if(apane.getChildren().contains(characterPreview)){
+            apane.getChildren().remove(characterPreview);
+        }
+        
+       characterPreview=new CharacterPreview(professor, deen, trustee);
+       apane.getChildren().add(characterPreview);
+       AnchorPane.setBottomAnchor(characterPreview, 30.0);
+       AnchorPane.setLeftAnchor(characterPreview, 240.0);
+        
+    }
+    
+    
     //this is a internal class for handeling a thread/task
     private class ClickingSounds extends Service<Integer>{
         boolean playSound=true;
@@ -274,6 +298,9 @@ public class StartMenu extends Pane{
                 }
             };
         };
+        
+        
+        
         
     }
     
