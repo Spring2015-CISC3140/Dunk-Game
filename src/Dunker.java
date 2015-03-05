@@ -1,3 +1,7 @@
+package CISC3140_Dunk_A_Prof;
+
+import Jeff_Ricks.cisc3120.asteroids.Asteroids;
+
 /**
 *
 * Initial creation of loader/runner for Dunk-a-Prof for CISC 31(2?)0 
@@ -29,5 +33,9 @@ public class Dunker {
 		model = new Model();
 		view = new View(model);
 		controller = new Controller(model);
+	}
+	
+	public static void main(String[] args) {
+		new Dunker();
 	}
 }

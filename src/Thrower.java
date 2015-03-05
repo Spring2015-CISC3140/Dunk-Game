@@ -1,3 +1,5 @@
+package CISC3140_Dunk_A_Prof;
+
 /**
 *
 * Thrower class
@@ -19,12 +21,15 @@ public class Thrower {
 		angle = 0.0f;		
 	}
 	
+	
+	//TODO: actually implement increment/decrement
 	//it's super hard to break out of Finite State Machine thinking, rabble. Too many voids.
 	//create methods for static or variable increase/decreases.
-	public void powerInc(float inc);
+	/*public void powerInc(float inc);
 	public void powerInc();
 	public void powerDec(float dec);
 	public void powerDec();
+	*/
 	//........ et cetera for both.
 	//setters/getters, whatnot
 	
