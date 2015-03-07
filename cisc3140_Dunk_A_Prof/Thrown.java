@@ -22,6 +22,9 @@ public class Thrown {
 	}
 	
 	//do movement based things; probably increment x/y position by velocity + some sort of gravity/wind?
+	/**
+	 * TODO: SPECS: What affects movement? How is movement defined?
+	 */
 	public void move(){
 		;
 	}

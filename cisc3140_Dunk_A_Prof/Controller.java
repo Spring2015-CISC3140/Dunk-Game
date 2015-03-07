@@ -14,6 +14,10 @@ import javax.swing.event.MouseInputListener;
 * 
 **/
 
+/**
+ * TODO: SPECS: What keys and or mouseclicks do what? 
+ */
+
 public class Controller implements MouseInputListener, KeyListener {
 	
 	Model model;

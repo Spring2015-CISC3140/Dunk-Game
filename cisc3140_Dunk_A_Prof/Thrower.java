@@ -24,6 +24,10 @@ public class Thrower {
 	}
 	
 	
+	/**
+	 * TODO: SPECS: What should these numbers be?
+	 */
+	
 	//it's super hard to break out of Finite State Machine thinking, rabble. Too many voids.
 	//create methods for static or variable increase/decreases.
 	public void powerInc(float inc){

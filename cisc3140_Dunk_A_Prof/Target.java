@@ -7,6 +7,10 @@ package cisc3140_Dunk_A_Prof;
 *
 **/
 
+/**
+ * TODO: SPECS: What is going on with this? What behaviors you do want displayed?
+ */
+
 public class Target {
 	
 	public Target(){

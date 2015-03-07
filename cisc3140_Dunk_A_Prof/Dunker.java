@@ -2,8 +2,7 @@ package cisc3140_Dunk_A_Prof;
 
 /**
 *
-* Initial creation of loader/runner for Dunk-a-Prof for CISC 31(2?)0 
-* Implementation and Design 2, whichever one that is.
+* Initial creation of loader/runner for Dunk-a-Prof for CISC 3140
 *
 **/
 

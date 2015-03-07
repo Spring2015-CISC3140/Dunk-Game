@@ -65,6 +65,11 @@ public class Model extends Observable {
 		thrower.angleDec();
 	}
 	
+	/**
+	 * TODO: SPECS: How are we running the update loop? We can run a thread in the background that runs a loop
+	 * controlled by change in time? or do you want us to update in the paint loop or whatnot?
+	 * You had better not just say "Do whatever."
+	 */
 	public void throwBall(){
 		thrown = thrower.throwBall();
 	}
