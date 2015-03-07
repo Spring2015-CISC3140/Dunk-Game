@@ -13,4 +13,8 @@ public class Dunkee {
 	public Dunkee(){
 		;//do stuff
 	}
+	
+	public void getDunked(){
+		;//probably do something like call an animation? idk man.		
+	}
 }

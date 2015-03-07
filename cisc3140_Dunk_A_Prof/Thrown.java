@@ -21,4 +21,9 @@ public class Thrown {
 		;
 	}
 	
+	//do movement based things; probably increment x/y position by velocity + some sort of gravity/wind?
+	public void move(){
+		;
+	}
+	
 }

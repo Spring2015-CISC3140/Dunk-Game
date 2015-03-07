@@ -24,14 +24,34 @@ public class Thrower {
 	}
 	
 	
-	//TODO: actually implement increment/decrement
 	//it's super hard to break out of Finite State Machine thinking, rabble. Too many voids.
 	//create methods for static or variable increase/decreases.
-	/*public void powerInc(float inc);
-	public void powerInc();
-	public void powerDec(float dec);
-	public void powerDec();
-	*/
+	public void powerInc(float inc){
+		power += inc;
+	}
+	public void powerInc(){
+		power += 1.0f;
+	}
+	public void powerDec(float dec){
+		power -= dec;
+	}
+	public void powerDec(){
+		power -= 1.0f;
+	}
+	
+	public void angleInc(float inc){
+		angle += inc;
+	}
+	public void angleInc(){
+		angle += 1.0f;
+	}
+	public void angleDec(float dec){
+		angle -= dec;
+	}
+	public void angleDec(){
+		angle -= 1.0f;
+	}
+	
 	//........ et cetera for both.
 	//setters/getters, whatnot
 	

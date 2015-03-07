@@ -9,9 +9,9 @@ package cisc3140_Dunk_A_Prof;
 **/
 
 public class Velocity {
-	
-	float angle;
-	float speed;
+	//TODO: Make these not public and build accessors.
+	public float angle;
+	public float speed;
 	
 	public Velocity(){
 		;//default, always gets called
@@ -22,3 +22,4 @@ public class Velocity {
 		this.speed = speed;
 	}
 }
+

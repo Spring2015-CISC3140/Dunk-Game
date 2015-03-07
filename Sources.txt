@@ -1,2 +1,5 @@
 // resolving that funky build error: 
 http://stackoverflow.com/questions/11235827/eclipse-error-could-not-find-or-load-main-class
+
+// we started in java compiler 1.4? Which doesn't have enums? Weird errors are weird man.
+http://stackoverflow.com/questions/3811012/can-not-compile-enums-in-eclipse
