@@ -16,8 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.shape.Circle;
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
@@ -47,6 +46,9 @@ public class StartMenu extends Pane{
     //the following are url's to sounds to be used later
         private URL clickingResource;
         private AudioClip click;
+        
+        private URL splashingResource;
+        private AudioClip splash;
     
     
     
@@ -71,7 +73,7 @@ public class StartMenu extends Pane{
        super.getChildren().add(apane);
        
        
-       //connection urls to local files, to be opened as sounds
+       //connection of url to local file, to be opened as clicking sound
        try{
             clickingResource= getClass().getResource("switch1.wav");//using getClass().getResource() to open a classPath file
             click=new AudioClip(clickingResource.toString());
@@ -79,6 +81,16 @@ public class StartMenu extends Pane{
        catch(Exception e){
             System.out.println(e);
        }
+       
+       //connection of url to local file, to be opened as splash sound
+       try{
+            splashingResource= getClass().getResource("Splash.wav");//using getClass().getResource() to open a classPath file
+            splash=new AudioClip(splashingResource.toString());
+       }
+       catch(Exception e){
+            System.out.println(e);
+       }
+       
     }
     
     private void logo(){
@@ -100,23 +112,35 @@ public class StartMenu extends Pane{
         
         spane.getChildren().addAll(bigCircle,middleCircle,smallCircle);
         
+        //this will be the background shading of the title
+        Label titleOutline=new Label("DUNK-A-PROF");
+        titleOutline.setTextFill(Color.BLACK);
+        titleOutline.setStyle("-fx-font-family: Chewy; -fx-font-size: 65;");//uses font downloaded by google from the main class
+        spane.getChildren().add(titleOutline);
+        
+        //this will be the title
         Label title=new Label("DUNK-A-PROF");
         title.setTextFill(Color.LIGHTGRAY);
-        title.setFont(new Font("Ariel",40));
+        title.setStyle("-fx-font-family: Chewy; -fx-font-size: 60;");//uses font downloaded by google from the main class
         spane.getChildren().add(title);
-        title.setAlignment(Pos.BOTTOM_CENTER);
         
         title.setOnMouseEntered( e->{
-           title.setScaleX(1.5);
+           title.setScaleX(1.5);//this will increase the title size
            title.setScaleY(1.5);
+           
+           titleOutline.setScaleX(1.5);//this will increase the outline of the title size
+           titleOutline.setScaleY(1.5);
         });
         title.setOnMouseExited( e ->{
-           title.setScaleX(1.0);
+           title.setScaleX(1.0);//this will revert the title size to normal
            title.setScaleY(1.0);
+           
+           titleOutline.setScaleX(1.0);//this will revert the title outlinee to normal size
+           titleOutline.setScaleY(1.0);
         });
         //adding the logo to the main AnchorPane
        apane.getChildren().add(spane);
-       AnchorPane.setLeftAnchor(spane, 230.0);
+       AnchorPane.setLeftAnchor(spane, 210.0);
        
     }
     
@@ -162,8 +186,14 @@ public class StartMenu extends Pane{
        startGame.setPrefSize(120,50);
        startGame.setStyle("-fx-background-color: #3ADF00;");
        apane.getChildren().add(startGame);
+       
+       SplashSound splashService=new SplashSound();//creats an object of the inner SplashSound class which extends Service
+       
        startGame.setOnAction(e ->{
            continueToNextScene=true;
+           
+           splashService.reset();
+           splashService.start();
        });
        
        AnchorPane.setBottomAnchor(startGame, 30.0);
@@ -172,11 +202,11 @@ public class StartMenu extends Pane{
     
     private void characterSelection(){
        HBox characterPane=new HBox();//pane of characters
-       characterPane.setSpacing(40);
+       characterPane.setSpacing(60);
        
        
-       double buttonWidth=150.0;
-       double buttonHeight=90.0;
+       double buttonWidth=160.0;
+       double buttonHeight=100.0;
        
        //this image will be under each character name
        Image plank=new Image("http://www.pd4pic.com/images/strip-of-wood-wood-border-wood-lath-wood-plank.png");
@@ -238,6 +268,7 @@ public class StartMenu extends Pane{
            startGame.setDisable(false);
            clickService.start();//starts the thread in the click service class, to make a sound
            
+           setCharacterPreview();
         });
         
         trusteePane.setOnMouseClicked(e ->{
@@ -251,13 +282,14 @@ public class StartMenu extends Pane{
            startGame.setDisable(false);
            clickService.start();//starts the thread in the click service class, to make a sound
            
+           setCharacterPreview();
         });
        
        
        
        characterPane.getChildren().addAll(professorPane, deenPane, trusteePane);
        
-       AnchorPane.setLeftAnchor(characterPane, 50.0);
+       AnchorPane.setLeftAnchor(characterPane, 85.0);
        AnchorPane.setTopAnchor(characterPane, 260.0);
        apane.getChildren().add(characterPane);
         
@@ -272,7 +304,7 @@ public class StartMenu extends Pane{
        characterPreview=new CharacterPreview(professor, deen, trustee);
        apane.getChildren().add(characterPreview);
        AnchorPane.setBottomAnchor(characterPreview, 30.0);
-       AnchorPane.setLeftAnchor(characterPreview, 240.0);
+       AnchorPane.setLeftAnchor(characterPreview, 270.0);
         
     }
     
@@ -298,11 +330,29 @@ public class StartMenu extends Pane{
                 }
             };
         };
-        
-        
-        
-        
+    }
+    private class SplashSound extends Service<Integer>{
+        boolean playSound=true;
+        @Override
+        protected Task<Integer> createTask(){
+            return new Task<Integer>(){
+                @Override
+                protected Integer call(){
+                    if(soundIsOn){     //if sound if off there will be no clicking
+                        try{
+                            splash.play(1.0);
+                            playSound=false;
+                        }
+                        catch(Exception e){
+                                System.out.println(e);
+                                }
+                    }
+                    return 0;//to signify everything went right like in c++
+                }
+            };
+        };         
     }
     
    
 }
+
