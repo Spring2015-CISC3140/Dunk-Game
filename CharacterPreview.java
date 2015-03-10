@@ -1,7 +1,8 @@
 package DunkAProf;
 
 import javafx.scene.layout.*;
-
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
 
 public class CharacterPreview extends Pane{
     private final double HEIGHT=235.0;
@@ -15,12 +16,14 @@ public class CharacterPreview extends Pane{
         super.setPrefWidth(WIDTH);
         super.setPrefHeight(HEIGHT);
         
+        Label characterPreview=new Label("Character preview...");//delete later 
+        super.getChildren().add(characterPreview);
         
         if(!professor && !deen && !trustee){
             super.setOpacity(0.0);
         }
         else{
-            super.setStyle("-fx-background-color: #BDBDBD;");//this is just a test line to test canvas..should be deleted later
+            super.setStyle("-fx-background-color: #BDBDBD;");//this is just a test line to test the pane..should be deleted later
         }
         
     }
