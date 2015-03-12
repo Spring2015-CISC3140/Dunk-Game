@@ -3,6 +3,8 @@ package cisc3140_Dunk_A_Prof;
 /**
 *
 * Initial creation of loader/runner for Dunk-a-Prof for CISC 3140
+* 
+* Read Readiness.java before doing any real work.
 *
 **/
 

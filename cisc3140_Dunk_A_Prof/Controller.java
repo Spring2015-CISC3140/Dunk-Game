@@ -65,7 +65,13 @@ public class Controller implements MouseInputListener, KeyListener {
 		
 	}
 
-	public void keyPressed(KeyEvent arg0) {
+	public void keyPressed(KeyEvent e) {
+		switch (e.getKeyChar()) {
+		case 'w':
+			System.out.println("w pressed");
+			model.go = false;
+		default: break; 
+		}
 		// TODO Auto-generated method stub
 		
 	}

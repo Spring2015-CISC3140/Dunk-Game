@@ -21,7 +21,7 @@ import java.util.Observable;
 *
 **/
 
-public class Model extends Observable {
+public class Model extends Observable implements Runnable{
 
 	//there are four parts of the model
 	//the thrower
@@ -34,11 +34,18 @@ public class Model extends Observable {
 	Target target;
 	Thrown thrown; // need a better name, thrown is too close to throw.
 	
+	Thread gameLoop;
+	
+	boolean go;
+	
 	State state;
 	
 	public Model(){
 		//enums in java are weird man.
 		state = State.menu;//default constructor
+		go = true;
+		gameLoop = new Thread(this);
+		gameLoop.start();
 	}
 	
 	/**
@@ -65,13 +72,16 @@ public class Model extends Observable {
 		thrower.angleDec();
 	}
 	
-	/**
-	 * TODO: SPECS: How are we running the update loop? We can run a thread in the background that runs a loop
-	 * controlled by change in time? or do you want us to update in the paint loop or whatnot?
-	 * You had better not just say "Do whatever."
-	 */
 	public void throwBall(){
 		thrown = thrower.throwBall();
+	}
+
+	@Override
+	public void run() {
+		//while running, do some stuff
+		while(go){
+			System.err.println("We're going");		}
+		
 	}
 	
 }
