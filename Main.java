@@ -13,7 +13,7 @@ import javafx.concurrent.*;
 public class Main extends Application {
     
     private StartMenu startMenu=new StartMenu();//startMenu is a subclass of the pane class
-    private WinMenu winMenu=new WinMenu();
+    private WinLoseMenu winLoseMenu=new WinLoseMenu();
     
     private Scene scene=new Scene(startMenu);//this is the scene that will hold each pane class
     
@@ -48,7 +48,8 @@ public class Main extends Application {
             }
             @Override
             protected void succeeded(){
-                scene=new Scene(winMenu);
+                scene=new Scene(winLoseMenu);
+                winLoseMenu.gameWon(true);
                 primaryStage.setScene(scene);
                 primaryStage.show();
             }
@@ -65,3 +66,4 @@ public class Main extends Application {
     }
     
 }
+
