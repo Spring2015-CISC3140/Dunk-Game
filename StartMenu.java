@@ -1,3 +1,4 @@
+
 package DunkAProf;
 
 import javafx.scene.paint.Color;
@@ -26,6 +27,7 @@ import java.io.*;
 import java.lang.Exception.*;
 
 
+
 public class StartMenu extends Pane{
     
     //this is for later use with the sound on and off option
@@ -43,18 +45,19 @@ public class StartMenu extends Pane{
     
     private CharacterPreview characterPreview;//this is a pane which will allow for the preview of characters, also setCharacterPreview() will make an instence of this object
     
-    //the following are url's to sounds to be used later
-        private URL clickingResource;
+    //the following are going to be used to hold paths to a sound effect
         private AudioClip click;
-        
-        private URL splashingResource;
         private AudioClip splash;
     
     
     
     public StartMenu(){
-        //sets background image 
-        super.setStyle("-fx-background-image: url('http://burnlipo.com/wp-content/uploads/2013/06/Wood-HD-Wallpaper-10-Download.jpg')");
+        //setting background image
+        try{//try to load background image from local file, if not then from URL
+            String backgroundPath= getClass().getResource("Wood-HD-Wallpaper.jpg").toExternalForm();
+            super.setStyle("-fx-background-image: url('"+backgroundPath+"')");
+        }
+        catch(Exception e){super.setStyle("-fx-background-image: url('http://burnlipo.com/wp-content/uploads/2013/06/Wood-HD-Wallpaper-10-Download.jpg')");}
         
         //setting width and height of our main AnchorPane
         apane.setPrefWidth(800);
@@ -75,7 +78,7 @@ public class StartMenu extends Pane{
        
        //connection of url to local file, to be opened as clicking sound
        try{
-            clickingResource= getClass().getResource("switch1.wav");//using getClass().getResource() to open a classPath file
+           URL clickingResource= getClass().getResource("switch1.wav");//using getClass().getResource() to open a classPath file
             click=new AudioClip(clickingResource.toString());
        }
        catch(Exception e){
@@ -84,7 +87,7 @@ public class StartMenu extends Pane{
        
        //connection of url to local file, to be opened as splash sound
        try{
-            splashingResource= getClass().getResource("Splash.wav");//using getClass().getResource() to open a classPath file
+            URL splashingResource= getClass().getResource("Splash.wav");//using getClass().getResource() to open a classPath file
             splash=new AudioClip(splashingResource.toString());
        }
        catch(Exception e){
@@ -96,7 +99,12 @@ public class StartMenu extends Pane{
     private void logo(){
         StackPane spane=new StackPane();//this is for the logo
         
-        Image splash=new Image("http://4.bp.blogspot.com/-2TeP5L1KLVs/UTZFMpNjp6I/AAAAAAAABlw/DeU_XmEDlNw/s1600/splash-md.png");
+        Image splash;//if splash image couldn't load from local file then load from url
+        try{
+            splash=new Image(getClass().getResource("Splash.png").toExternalForm());
+        }
+        catch(Exception e){splash=new Image("http://4.bp.blogspot.com/-2TeP5L1KLVs/UTZFMpNjp6I/AAAAAAAABlw/DeU_XmEDlNw/s1600/splash-md.png");}
+        
         ImageView splashView=new ImageView(splash);
         splashView.setFitHeight(260);
         splashView.setFitWidth(260);
@@ -146,14 +154,25 @@ public class StartMenu extends Pane{
     
     private void soundOnOff(){
         Pane soundPane=new Pane();
+        
         //sound on image
-        Image soundOn=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-2.png");
+        Image soundOn;//load soundOn image from ULR, if not found in Local file
+        try{
+            soundOn=new Image(getClass().getResource("SoundOn.png").toExternalForm());
+        }
+        catch(Exception e){soundOn=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-2.png");}
+        
         ImageView soundOnView=new ImageView(soundOn);
         soundOnView.setFitWidth(40);
         soundOnView.setFitHeight(40);
         
         //sound off image
-        Image soundOff=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-0.png");
+        Image soundOff;//if  SoundOff image can't load from local file, then it is loaded from a url
+        try{
+            soundOff=new Image(getClass().getResource("SoundOff.png").toExternalForm());
+        }
+        catch(Exception e){soundOff=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-0.png");}
+        
         ImageView soundOffView=new ImageView(soundOff);
         soundOffView.setFitWidth(40);
         soundOffView.setFitHeight(40);
@@ -209,8 +228,13 @@ public class StartMenu extends Pane{
        double buttonHeight=100.0;
        
        //this image will be under each character name
-       Image plank=new Image("http://www.pd4pic.com/images/strip-of-wood-wood-border-wood-lath-wood-plank.png");
-       //this has to repeat 3 times for each 'button' we are making
+       Image plank;//loaded from class path, if not then from url
+       try{
+           plank=new Image(getClass().getResource("strip-of-wood.png").toExternalForm());
+       }
+       catch(Exception e){plank=new Image("http://www.pd4pic.com/images/strip-of-wood-wood-border-wood-lath-wood-plank.png");}
+       
+       //this has to repeat 3 times for each 'button' made
        ImageView plankImage1= new ImageView(plank);
        plankImage1.setFitWidth(buttonWidth);
        plankImage1.setFitHeight(buttonHeight);
@@ -355,4 +379,3 @@ public class StartMenu extends Pane{
     
    
 }
-
