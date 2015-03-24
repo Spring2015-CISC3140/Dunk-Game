@@ -91,7 +91,7 @@ public class TestPause extends Application {
                     @Override
                     protected void succeeded(){
                         apane.getChildren().remove(pauseMenu);//removed the pauseMenu pane from the primaryStage, thus returning to the previous view
-                
+                        soundIsOn=pauseMenu.soundIsOn;
                     }
                 };
             }
