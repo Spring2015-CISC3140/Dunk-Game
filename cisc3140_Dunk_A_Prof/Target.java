@@ -42,5 +42,11 @@ public class Target {
             positionY = y;
         }
         
-       
+        public int getX(){
+            return positionX;
+        }
+        public int getY(){
+            return positionY;
+        }
+              
 }
