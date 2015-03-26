@@ -14,11 +14,13 @@ package cisc3140_Dunk_A_Prof;
 public class Target {
 	private int positionX;// represent position of the target
         private int positionY;
+        boolean targetHit;
         //private int speed; //(work on this later if needed)
 	public Target(){
             //initial position of the target left top corner
             positionX = 0;
             positionY = 0;
+            targetHit = false;
             //speed = 0
 	}
         
@@ -26,6 +28,7 @@ public class Target {
             //can pass coordinates to target
             positionX = posX;
             positionY = posY;
+            targetHit = false;
         }
         
         public void changePosition(int posX, int posY){
@@ -47,6 +50,16 @@ public class Target {
         }
         public int getY(){
             return positionY;
+        }
+        public void changeHit(boolean state){
+            targetHit = state;
+        }
+        public void hitSuccess(){
+            targetHit = true;
+        }
+        
+        public boolean isHit(){
+            return targetHit;
         }
               
 }
