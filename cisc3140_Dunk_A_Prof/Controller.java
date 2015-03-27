@@ -18,9 +18,10 @@ import javax.swing.event.MouseInputListener;
  * TODO: SPECS: What keys and or mouseclicks do what? 
  */
 
-public class Controller implements MouseInputListener, KeyListener {
+public class Controller implements MouseInputListener, KeyListener, Runnable {
 	
 	Model model;
+	Thread thread;
 	
 	public Controller(){
 		;//need a default, but won't use it
@@ -28,6 +29,7 @@ public class Controller implements MouseInputListener, KeyListener {
 	
 	public Controller(Model model){
 		this.model = model;
+		thread = new Thread(this);
 	}
 
 	public void mouseClicked(MouseEvent arg0) {
@@ -83,6 +85,14 @@ public class Controller implements MouseInputListener, KeyListener {
 
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run() {
+		while(model.go){
+			
+		}
 		
 	}
 }

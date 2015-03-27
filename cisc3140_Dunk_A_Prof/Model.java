@@ -80,7 +80,15 @@ public class Model extends Observable implements Runnable{
 	public void run() {
 		//while running, do some stuff
 		while(go){
-			System.err.println("We're going");		}
+			System.err.println("We're going");		
+			
+			//observer/able functions. We can pass an object to notifyObservers to use as a message.
+			//good practice denotes we make a message class so that observers can check against it
+			//and not go haywire. 
+			setChanged();
+		    notifyObservers();
+		    clearChanged();
+		}
 		
 	}
 	
