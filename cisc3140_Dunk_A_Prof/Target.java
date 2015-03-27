@@ -44,7 +44,7 @@ public class Target {
         public void changeY(int y){
             positionY = y;
         }
-        
+                
         public int getX(){
             return positionX;
         }
@@ -61,5 +61,31 @@ public class Target {
         public boolean isHit(){
             return targetHit;
         }
-              
+        
+        public void moveTargetHorizontaly(){
+            //1st simple version of the target move 
+            //function will cause target's X coordinates to change
+            //makes target move from left to right and then from right to left
+            //increments X coordinate to 800 and then decrement to 0
+            
+            //this is just idea not sure if it is going to work in the View or how to incorporate it in graphics
+            boolean moveRight;
+            moveRight = positionX != 799;
+            
+            while(true){
+                //target every time move until it hit
+                if(targetHit)
+                    break;
+                if(moveRight){
+                    positionX++;
+                    if(positionX==799)
+                        moveRight = false;
+                }
+                if(!moveRight){
+                    positionX--;
+                    if(positionX==1)
+                        moveRight = true;
+                }
+            }
+        }          
 }
