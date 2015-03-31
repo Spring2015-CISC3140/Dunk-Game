@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.concurrent.*;
 
-public class Main extends Application {
+public class TestStartMenu extends Application {
     private int wherearewe = 1; //This variable controls what stage the game should be at.
     //For example, if we start the game then where are we will be at 2, and thus the game
     //should be at the menu where we do everything.
