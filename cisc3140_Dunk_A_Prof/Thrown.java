@@ -50,7 +50,7 @@ public class Thrown {
 	public void doPhysics(){
 		//change the angle, need to insert some form of error checking here, likely in the form of a setter in the
 		//velocity class.
-		velocity.angle -= grav; 
+		velocity.setAngle(velocity.getAngle() - grav); 
 	}
 	
 }

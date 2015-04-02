@@ -20,6 +20,7 @@ public class Thrower {
 	public Thrower(){
 		power = 0.0f;
 		angle = 0.0f;
+        velocity = new Velocity();
 		
 	}
 	

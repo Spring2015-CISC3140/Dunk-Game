@@ -70,12 +70,28 @@ public class Controller implements MouseInputListener, KeyListener, Runnable {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyChar()) {
+            int keyCode = e.getKeyCode();
+            switch(keyCode){ //implement code for UP key
+                case KeyEvent.VK_KP_UP:
+                    //implement code for UP key. Should send parameters to the model or can change velocity
+                    //increment angle
+                    break;
+                case KeyEvent.VK_KP_DOWN:
+                    //implementation for DOWN key. decrement angle 
+                    break;
+                case KeyEvent.VK_KP_RIGHT:
+                    //increment direction angle
+                    break;
+                case KeyEvent.VK_KP_LEFT:
+                    //decrement directional angle
+                    break;
+            }
+		/*switch (e.getKeyChar()) {
 		case 'w':
 			System.out.println("w pressed");
 			model.go = false;
 		default: break; 
-		}
+		}*/
 		// TODO Auto-generated method stub
 		
 	}
