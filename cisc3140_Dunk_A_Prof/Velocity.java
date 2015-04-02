@@ -12,20 +12,20 @@ public class Velocity {
 	//TODO: Make these not public and build accessors.
 	private float angle;
 	private float speed;
-        private float direction;
+    private float direction;
 	
 	public Velocity(){
 		angle = 45f;
-                speed = 1f; //assuming speed can't be 0 because nothing will happen
-                direction = 0f; //will point straigt. vlaues 0-90 will direct to the left
-                //values from 90-180 will point right
+        speed = 1f; //assuming speed can't be 0 because nothing will happen
+        direction = 0f; //will point straigt. vlaues 0-90 will direct to the left
+        //values from 90-180 will point right
                 
 	}
 	
 	public Velocity(float angle, float speed, float direction){
 		this.angle = angle;
 		this.speed = speed;
-                this.direction = direction;
+        this.direction = direction;
 	}
         
         //accesors and mutators
