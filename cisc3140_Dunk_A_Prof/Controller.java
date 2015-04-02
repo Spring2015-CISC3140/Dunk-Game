@@ -16,6 +16,8 @@ import javax.swing.event.MouseInputListener;
 
 /**
  * TODO: SPECS: What keys and or mouseclicks do what? 
+ * 
+ * needs a context for picking up input.
  */
 
 public class Controller implements MouseInputListener, KeyListener, Runnable {

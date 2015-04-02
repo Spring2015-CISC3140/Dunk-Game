@@ -82,11 +82,14 @@ public class Model extends Observable implements Runnable{
 		while(go){
 			System.err.println("We're going");		
 			
+			//thrown logic happens
+			
+			
 			//observer/able functions. We can pass an object to notifyObservers to use as a message.
 			//good practice denotes we make a message class so that observers can check against it
 			//and not go haywire. 
 			setChanged();
-		    notifyObservers();
+		    notifyObservers(/*can include a message object*/);
 		    clearChanged();
 		}
 		

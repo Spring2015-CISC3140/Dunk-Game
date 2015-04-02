@@ -18,6 +18,8 @@ public class Dunkee {
 	 * TODO: SPECS: What happens here?
 	 */
 	public void getDunked(){
-		;//probably do something like call an animation? idk man.		
+		;//probably do something like call an animation? idk man.
+		
+		//change state?
 	}
 }

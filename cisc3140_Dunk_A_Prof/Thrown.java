@@ -19,7 +19,7 @@ package cisc3140_Dunk_A_Prof;
 
 public class Thrown {
 	
-	float x, y;
+	float x, y, z;
 	Velocity velocity;
 	
 	/**
@@ -35,7 +35,7 @@ public class Thrown {
 	}
 	
 	public Thrown(float initialX, float initialY, Velocity initialVelocity){
-		;
+		z = 0;//whatever player depth is.
 	}
 	
 	//do movement based things; probably increment x/y position by velocity + some sort of gravity/wind?

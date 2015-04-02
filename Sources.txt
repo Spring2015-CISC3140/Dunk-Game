@@ -6,3 +6,6 @@ http://stackoverflow.com/questions/3811012/can-not-compile-enums-in-eclipse
 
 //observer/observable
 http://www.javaworld.com/article/2077258/learn-java/observer-and-observable.html
+
+//state machine
+http://lazyfoo.net/articles/article06/index.php

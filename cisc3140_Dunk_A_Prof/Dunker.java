@@ -10,11 +10,6 @@ package cisc3140_Dunk_A_Prof;
 
 public class Dunker {
 
-	//will need a
-	//model
-	//view
-	//controller
-	
 	//controller will be some form of input
 	//view is Graphics' job
 	//model is the fun exciting part.

@@ -12,10 +12,12 @@ package cisc3140_Dunk_A_Prof;
  */
 
 public class Target {
+	
 	private int positionX;// represent position of the target
-        private int positionY;
-        boolean targetHit;
-        //private int speed; //(work on this later if needed)
+    private int positionY;
+    boolean targetHit;
+    
+    //private int speed; //(work on this later if needed)
 	public Target(){
             //initial position of the target left top corner
             positionX = 0;
