@@ -1,5 +1,6 @@
 package cisc3140_Dunk_A_Prof;
 
+import java.awt.Rectangle; // Just basic shape as a place holder
 /**
 *
 * The thing which is thrown.
@@ -53,4 +54,16 @@ public class Thrown {
 		velocity.setAngle(velocity.getAngle() - grav); 
 	}
 	
+	public Rectangle getBounds() {
+		return new Rectangle ((int)x, (int)y, 10, 10); // assuming size of the ball is 10 x 10
+	}
+	
+	public void Collision() {
+		Rectangle ball = Thrown.getBounds();
+		Rectangle targ = Target.getBounds();
+		if (ball.intersects(targ)) {
+			System.out.println("Target has been hit");
+			targ.isHit();
+		}
+	}
 }

@@ -1,5 +1,7 @@
 package cisc3140_Dunk_A_Prof;
 
+import java.awt.Rectangle;
+
 /**
 *
 * That which gets things specifically thrown at it.
@@ -90,4 +92,8 @@ public class Target {
                 }
             }
         }          
+        
+        public Rectangle getBounds() {
+    		return new Rectangle ((int)getX(), (int)getY(), 10, 40); // assuming size of the target is 10 x 40
+    	}
 }
