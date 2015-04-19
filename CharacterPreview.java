@@ -1,3 +1,4 @@
+
 package DunkAProf;
 
 import javafx.scene.layout.*;
@@ -27,20 +28,23 @@ public class CharacterPreview extends Pane{
             if(professor){
                 character=new Image(getClass().getResource("Professor1.png").toExternalForm());
                 characterView=new ImageView(character);
+                characterView.setFitHeight(character.getHeight()*0.65);
+                characterView.setFitWidth(character.getWidth()*0.65);               
             }
             if(deen){
                 character=new Image(getClass().getResource("Deen1.png").toExternalForm());
                 characterView=new ImageView(character);
+                characterView.setFitHeight(character.getHeight()*0.65);
+                characterView.setFitWidth(character.getWidth()*0.65);                
             }
             if(trustee){
                 character=new Image(getClass().getResource("Trustee1.png").toExternalForm());
                 characterView=new ImageView(character);
+                characterView.setFitHeight(character.getHeight()*0.65);
+                characterView.setFitWidth(character.getWidth()*0.65);                
             }
-            characterView.setFitHeight(HEIGHT);
-            characterView.setFitWidth(WIDTH-50);
             super.getChildren().add(characterView);
         }
     }
     
 }
-
