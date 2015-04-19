@@ -13,17 +13,17 @@ public class TestBakcground extends Application {
     boolean professor=false;
     boolean deen=false;
     boolean trustee=false;
-    BackgroundCanvas background;
+    BackgroundPane background;
     
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
-        primaryStage.setTitle("Dunk-A-Prom");
+        primaryStage.setTitle("Dunk-A-Prof");
         
         deen=true;
-        background=new BackgroundCanvas(professor, deen, trustee);
+        background=new BackgroundPane(professor, deen, trustee);
         Scene scene=new Scene(background);
         
         primaryStage.setScene(scene);
