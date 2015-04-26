@@ -1,6 +1,3 @@
-
-package DunkAProf;
-
 import javafx.scene.paint.Color;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -54,7 +51,7 @@ public class StartMenu extends Pane{
     public StartMenu(){
         //setting background image
         try{//try to load background image from local file, if not then from URL
-            String backgroundPath= getClass().getResource("Wood-HD-Wallpaper.jpg").toExternalForm();
+            String backgroundPath= getClass().getResource("Media/Wood-HD-Wallpaper.jpg").toExternalForm();
             super.setStyle("-fx-background-image: url('"+backgroundPath+"')");
         }
         catch(Exception e){super.setStyle("-fx-background-image: url('http://burnlipo.com/wp-content/uploads/2013/06/Wood-HD-Wallpaper-10-Download.jpg')");}
@@ -78,7 +75,7 @@ public class StartMenu extends Pane{
        
        //connection of url to local file, to be opened as clicking sound
        try{
-           URL clickingResource= getClass().getResource("switch1.wav");//using getClass().getResource() to open a classPath file
+           URL clickingResource= getClass().getResource("Media/switch1.wav");//using getClass().getResource() to open a classPath file
             click=new AudioClip(clickingResource.toString());
        }
        catch(Exception e){
@@ -87,7 +84,7 @@ public class StartMenu extends Pane{
        
        //connection of url to local file, to be opened as splash sound
        try{
-            URL splashingResource= getClass().getResource("Splash.wav");//using getClass().getResource() to open a classPath file
+            URL splashingResource= getClass().getResource("Media/Splash.wav");//using getClass().getResource() to open a classPath file
             splash=new AudioClip(splashingResource.toString());
        }
        catch(Exception e){
@@ -101,7 +98,7 @@ public class StartMenu extends Pane{
         
         Image splash;//if splash image couldn't load from local file then load from url
         try{
-            splash=new Image(getClass().getResource("Splash.png").toExternalForm());
+            splash=new Image(getClass().getResource("Media/Splash.png").toExternalForm());
         }
         catch(Exception e){splash=new Image("http://4.bp.blogspot.com/-2TeP5L1KLVs/UTZFMpNjp6I/AAAAAAAABlw/DeU_XmEDlNw/s1600/splash-md.png");}
         
@@ -158,7 +155,7 @@ public class StartMenu extends Pane{
         //sound on image
         Image soundOn;//load soundOn image from ULR, if not found in Local file
         try{
-            soundOn=new Image(getClass().getResource("SoundOn.png").toExternalForm());
+            soundOn=new Image(getClass().getResource("Media/SoundOn.png").toExternalForm());
         }
         catch(Exception e){soundOn=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-2.png");}
         
@@ -169,7 +166,7 @@ public class StartMenu extends Pane{
         //sound off image
         Image soundOff;//if  SoundOff image can't load from local file, then it is loaded from a url
         try{
-            soundOff=new Image(getClass().getResource("SoundOff.png").toExternalForm());
+            soundOff=new Image(getClass().getResource("Media/SoundOff.png").toExternalForm());
         }
         catch(Exception e){soundOff=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-0.png");}
         
@@ -230,7 +227,7 @@ public class StartMenu extends Pane{
        //this image will be under each character name
        Image plank;//loaded from class path, if not then from url
        try{
-           plank=new Image(getClass().getResource("strip-of-wood.png").toExternalForm());
+           plank=new Image(getClass().getResource("Media/Strip-of-wood.png").toExternalForm());
        }
        catch(Exception e){plank=new Image("http://www.pd4pic.com/images/strip-of-wood-wood-border-wood-lath-wood-plank.png");}
        
@@ -328,7 +325,7 @@ public class StartMenu extends Pane{
        characterPreview=new CharacterPreview(professor, deen, trustee);
        apane.getChildren().add(characterPreview);
        AnchorPane.setBottomAnchor(characterPreview, 30.0);
-       AnchorPane.setLeftAnchor(characterPreview, 270.0);
+       AnchorPane.setLeftAnchor(characterPreview, 315.0);
         
     }
     
