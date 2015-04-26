@@ -1,5 +1,3 @@
-package PauseMenu;
-
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -41,7 +39,7 @@ public class PauseMenu extends Pane {
         super.getChildren().add(apane);
         
         try{//this gets a blop loaded and ready to be used when needed by a Service inner class
-            blopResource=getClass().getResource("Blop.wav");
+            blopResource=getClass().getResource("Media/Blop.wav");
             blop=new AudioClip(blopResource.toString());
         }
         catch(Exception e){System.out.println(e);}
@@ -79,7 +77,7 @@ public class PauseMenu extends Pane {
         //sound on image
         Image soundOn;//load soundOn image from ULR, if not found in Local file
         try{
-            soundOn=new Image(getClass().getResource("SoundOn.png").toExternalForm());
+            soundOn=new Image(getClass().getResource("Media/SoundOn.png").toExternalForm());
         }
         catch(Exception e){soundOn=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-2.png");} 
         
@@ -90,7 +88,7 @@ public class PauseMenu extends Pane {
         //sound off image
         Image soundOff;//if  SoundOff image can't load from local file, then it is loaded from a url
         try{
-            soundOff=new Image(getClass().getResource("SoundOff.png").toExternalForm());
+            soundOff=new Image(getClass().getResource("Media/SoundOff.png").toExternalForm());
         }
         catch(Exception e){soundOff=new Image("https://cdn4.iconfinder.com/data/icons/defaulticon/icons/png/128x128/media-volume-0.png");}
         
@@ -127,7 +125,7 @@ public class PauseMenu extends Pane {
         //loading a picture of a red x to add to the button
         Image xImage;//try loading it from local classpath, and if not then from url
         try{
-            xImage=new Image(getClass().getResource("X.png").toExternalForm());
+            xImage=new Image(getClass().getResource("Media/X.png").toExternalForm());
         }
         catch(Exception e){xImage=new Image("https://openclipart.org/image/800px/svg_to_png/15815/Arnoud999-Right-or-wrong-5.png");}
         
@@ -154,7 +152,7 @@ public class PauseMenu extends Pane {
         //loading a picture of a green arrow to add to the button
         Image returnImage;//try to load image from local file, if not then from url
         try{
-            returnImage=new Image(getClass().getResource("return.png").toExternalForm());
+            returnImage=new Image(getClass().getResource("Media/return.png").toExternalForm());
         }
         catch(Exception e){returnImage=new Image("https://openclipart.org/image/800px/svg_to_png/17018/jean-victor-balin-icon-arrow-left-green.png");}
         
@@ -181,7 +179,7 @@ public class PauseMenu extends Pane {
         //loading a picture of a green return/refresh arrow to add to button
         Image restartImage;//try to get restart image from class path, if not found then load it from url
         try{
-            restartImage=new Image(getClass().getResource("restart.png").toExternalForm());
+            restartImage=new Image(getClass().getResource("Media/restart.png").toExternalForm());
         }
         catch(Exception e){restartImage=new Image("https://openclipart.org/image/800px/svg_to_png/212123/rodentia-icons_view-refresh.png");}
         
