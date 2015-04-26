@@ -1,4 +1,4 @@
-import javafx.scene.layout.*;
+mport javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.image.*;
@@ -123,8 +123,7 @@ public class MainGamePane extends Pane {
         activateSeat = new ActivateSeat();
         activateSeat.start();
 
-        Test test = new Test();
-        test.start();
+        //(new Test()).start();
         
         pauseButton();
     }
@@ -401,10 +400,33 @@ public class MainGamePane extends Pane {
                 @Override
                 protected void succeeded() {
                     songLoop.stop();
+                    (new RestartSongService()).start();
                 }
             };
         }
     }
+
+    class RestartSongService extends Service<Integer> {
+
+        @Override
+        protected Task<Integer> createTask() {
+            return new Task<Integer>() {
+                @Override
+                protected Integer call() {
+                    while (!soundOn) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {}
+                    }
+                    return 0;
+                }
+                @Override
+                protected void succeeded() {
+                    startSongService();
+                }
+            };
+        }
+    }    
 
     class Test extends Service<Integer> {
 
