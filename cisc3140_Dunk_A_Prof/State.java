@@ -9,6 +9,6 @@ package cisc3140_Dunk_A_Prof;
 */
 
 public enum State {
-	menu,
-	game
+	MENU,
+	GAME
 };

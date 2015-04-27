@@ -42,7 +42,8 @@ public class Model extends Observable implements Runnable{
 	
 	public Model(){
 		//enums in java are weird man.
-		state = State.menu;//default constructor
+		//tell me about it bro..
+		state = State.MENU;//default constructor
 		go = true;
 		gameLoop = new Thread(this);
 		gameLoop.start();

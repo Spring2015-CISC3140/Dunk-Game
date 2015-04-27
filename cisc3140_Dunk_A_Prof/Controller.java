@@ -24,6 +24,7 @@ public class Controller implements MouseInputListener, KeyListener, Runnable {
 	
 	Model model;
 	Thread thread;
+	State state;
 	
 	public Controller(){
 		;//need a default, but won't use it
@@ -34,7 +35,26 @@ public class Controller implements MouseInputListener, KeyListener, Runnable {
 		thread = new Thread(this);
 	}
 
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent arg0) 
+	{
+		//first check the state of the game by doing something like this if(state == state.MENU)
+		switch(state)
+		{
+		case MENU:
+		{
+			//use Mouseevents to do something when your in the Menu
+			//Give it different Functionality
+			
+		}
+		case GAME:
+		{
+			//use Mouseevents to do something when your in the Game
+			//Give it different Functionality
+		}
+	
+		default:
+		
+		}
 		// TODO Auto-generated method stub
 		
 	}
@@ -49,12 +69,51 @@ public class Controller implements MouseInputListener, KeyListener, Runnable {
 		
 	}
 
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent arg0) 
+	{
+		//first check the state of the game by doing something like this if(state == state.MENU)
+		switch(state)
+		{
+		case MENU:
+		{
+			//use Mouseevents to do something when your in the Menu
+			//Give it different Functionality
+			
+		}
+		case GAME:
+		{
+			//use Mouseevents to do something when your in the Game
+			//Give it different Functionality
+		}
+	
+		default:
+		
+		}
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent arg0) 
+	{
+		//first check the state of the game by doing something like this if(state == state.MENU)
+		switch(state)
+		{
+		case MENU:
+		{
+			//use Mouseevents to do something when your in the Menu
+			//Give it different Functionality
+			
+		}
+		case GAME:
+		{
+			//use Mouseevents to do something when your in the Game
+			//Give it different Functionality
+		}
+	
+		default:
+			
+		}
+		
 		// TODO Auto-generated method stub
 		
 	}
