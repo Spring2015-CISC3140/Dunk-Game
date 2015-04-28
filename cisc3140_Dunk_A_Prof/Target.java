@@ -10,16 +10,16 @@ import java.awt.Rectangle;
 **/
 
 /**
- * TODO: SPECS: What is going on with this? What behaviors you do want displayed?
+ * TODO: SPECS: What is going on with this? What behaviors do you  want displayed?
  */
 
 public class Target {
 	
-	private int positionX;// represent position of the target
-    private int positionY;
-    boolean targetHit;
-    
-    //private int speed; //(work on this later if needed)
+    	private int positionX;// represent position of the target
+    	private int positionY;
+    	boolean targetHit;
+        //private int speed; //(work on this later if needed)
+	
 	public Target(){
             //initial position of the target left top corner
             positionX = 0;
@@ -41,11 +41,11 @@ public class Target {
             positionY = posY;
         }
         
-        public void changeX(int x){
+        public void changeX(int x){ //change the position of coordinate x
             positionX = x;
         }
         
-        public void changeY(int y){
+        public void changeY(int y){ //change the position of coordinate y
             positionY = y;
         }
                 
@@ -78,8 +78,8 @@ public class Target {
             
             while(true){
                 //target every time move until it hit
-                if(targetHit)
-                    break;
+                if(targetHit){
+                    break;}
                 if(moveRight){
                     positionX++;
                     if(positionX==799)
