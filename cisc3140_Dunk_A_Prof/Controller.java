@@ -1,6 +1,6 @@
 /**
 * Controller code
-* Listens for things such as mouse & key movements, then sends them over to the model.
+* Listens for things such as mouse and key movements, then sends them over to the model.
 * This stuff can also be accomplished via buttons, but atm am unsure of how to implement this in MVC atm
 * 
 **/
