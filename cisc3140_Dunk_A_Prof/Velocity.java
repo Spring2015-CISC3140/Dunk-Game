@@ -53,4 +53,5 @@ public class Velocity {
             return direction;
         }
 }
-
+//considering the player will be directing which angle they want to throw from should
+// we include a exception handler that makes sure that they throw correctly within range of the target?
