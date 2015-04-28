@@ -1,3 +1,9 @@
+/**
+* Controller code
+* Listens for things such as mouse & key movements, then sends them over to the model.
+* This stuff can also be accomplished via buttons, but atm am unsure of how to implement this in MVC atm
+* 
+**/
 package cisc3140_Dunk_A_Prof;
 
 import java.awt.event.KeyEvent;
@@ -6,13 +12,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputListener;
 
-/**
-* 
-* Controller code
-* Listens for things, then sends them over to the model.
-* This stuff can also be accomplished via buttons, but atm am unsure of how to implement this in MVC atm
-* 
-**/
+
 
 /**
  * TODO: SPECS: What keys and or mouseclicks do what? 
