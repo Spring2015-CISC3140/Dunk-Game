@@ -79,12 +79,32 @@ public class Model extends Observable implements Runnable{
 
 	@Override
 	public void run() {
-		//while running, do some stuff
+		long lastTime = System.nanoTime();
+		final double amountOfTicks = 60.0;
+		double ns = 1000000000 / amountOfTicks;
+		double delta = 0;
+		int updates = 0;
+		int frames = 0;
+		long timer = System.currentTimeMillis();
 		while(go){
-			System.err.println("We're going");		
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			if(delta >= 1) {
+				updates++;
+				delta--;
+			}
+			frames++;
+			
+			if(System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				System.out.println("Ticks: " + updates + " FPS: " + frames);
+				updates = 0;
+				frames = 0;
+			}
+		}		
 			
 			//thrown logic happens
-			
 			
 			//observer/able functions. We can pass an object to notifyObservers to use as a message.
 			//good practice denotes we make a message class so that observers can check against it
@@ -92,8 +112,5 @@ public class Model extends Observable implements Runnable{
 			setChanged();
 		    notifyObservers(/*can include a message object*/);
 		    clearChanged();
-		}
-		
 	}
-	
 }
