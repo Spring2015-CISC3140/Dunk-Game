@@ -40,7 +40,8 @@ public class WinMenu extends Pane {
         banner.getChildren().addAll(splashView, youWon);
         
         apane.getChildren().add(banner);
-        AnchorPane.setTopAnchor(banner, 10.0);
-        AnchorPane.setLeftAnchor(banner, 50.0);
+        //Centers banner
+        AnchorPane.setTopAnchor(banner, 200.0);
+        AnchorPane.setLeftAnchor(banner, 200.0);
     }
 }
