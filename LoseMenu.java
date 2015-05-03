@@ -35,8 +35,9 @@ public class LoseMenu extends Pane {
         splashView.setFitWidth(400);
         banner.getChildren().addAll(splashView, youWon);
         apane.getChildren().add(banner);
-        AnchorPane.setTopAnchor(banner, 10.0);
-        AnchorPane.setLeftAnchor(banner, 50.0);
+        //Sets to middle of pane.
+        AnchorPane.setTopAnchor(banner, 200.0);
+        AnchorPane.setLeftAnchor(banner, 200.0);
     }
 
 }
