@@ -22,6 +22,25 @@ public class LoseMenu extends Pane {
         apane.setStyle("-fx-background-color: #1C1C1C;");
         LoserBanner();
         super.getChildren().add(apane);
+        
+        //Adds Restart button and quit game buttons.
+        Button RestartGame = new Button("Restart?");
+        RestartGame.setPrefSize(120, 50);
+        RestartGame.setStyle("-fx-background-color: #3ADF00;");
+        RestartGame.setTextFill(Color.BLUE);
+        
+        AnchorPane.setBottomAnchor(RestartGame, 30.0);
+        AnchorPane.setRightAnchor(RestartGame, 20.0);
+        
+        Button QuitGame = new Button("Quit?");
+        QuitGame.setPrefSize(120, 50);
+        QuitGame.setStyle("-fx-background-color: #3ADF00;");
+        QuitGame.setTextFill(Color.BLUE);
+        
+        AnchorPane.setBottomAnchor(QuitGame, 30.0);
+        AnchorPane.setLeftAnchor(QuitGame, 20.0);
+        apane.getChildren().add(RestartGame);
+        apane.getChildren().add(QuitGame);
     }
     
     void LoserBanner(){
