@@ -12,7 +12,8 @@ public class WinMenu extends Pane {
 
     private final double HEIGHT = 600;
     private final double WIDTH = 800;
-    boolean closeGame = true;
+    boolean closeGame = false;
+    boolean restartGame=false;
     private AnchorPane apane = new AnchorPane();
 
     WinMenu() {
@@ -29,6 +30,11 @@ public class WinMenu extends Pane {
         RestartGame.setStyle("-fx-background-color: #3ADF00;");
         RestartGame.setTextFill(Color.BLUE);
         
+        RestartGame.setOnMouseClicked(e ->{
+            System.out.println("test");
+            restartGame=true;
+        });
+        
         AnchorPane.setBottomAnchor(RestartGame, 30.0);
         AnchorPane.setRightAnchor(RestartGame, 20.0);
         
@@ -36,6 +42,11 @@ public class WinMenu extends Pane {
         QuitGame.setPrefSize(120, 50);
         QuitGame.setStyle("-fx-background-color: #3ADF00;");
         QuitGame.setTextFill(Color.BLUE);
+        
+        QuitGame.setOnMouseClicked(e ->{
+            System.out.println("test");
+            closeGame=true;
+        });
         
         AnchorPane.setBottomAnchor(QuitGame, 30.0);
         AnchorPane.setLeftAnchor(QuitGame, 20.0);
