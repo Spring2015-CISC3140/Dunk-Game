@@ -1,3 +1,12 @@
+/*this is the main class which contains threads that allow for the transition
+between the different parts of the game.
+It first starts at the start menu at startMenu.java,
+then it transitions to the main game at backgroundPane.java,
+and then to either a win or lose menu, depending on the state of the backgroundPane
+*/
+
+package DunkAProf;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,8 +20,9 @@ import javafx.concurrent.*;
 public class TestAll extends Application {
     
     private StartMenu startMenu=new StartMenu();//startMenu is a subclass of the pane class
-    private WinLoseMenu winLoseMenu=new WinLoseMenu();
     private BackgroundPane backgroundPane;
+    private LoseMenu loseMenu=new LoseMenu();
+    private WinMenu winMenu=new WinMenu();
     private boolean professor, deen, trustee, soundOn;
     
     private Stage primaryStage=new Stage();
@@ -24,7 +34,7 @@ public class TestAll extends Application {
     private CloseGameService closeGameService=new CloseGameService();
     private RestartGameService restartGameService=new RestartGameService();
     private SwitchToGamePane switchToGamePane=new SwitchToGamePane();
-    private SwitchToWinPane switchToWinPane=new SwitchToWinPane();
+    private SwitchToWinLosePane switchToWinPane=new SwitchToWinLosePane();
     
     @Override
     public void start(Stage primaryStage) {
@@ -49,6 +59,7 @@ public class TestAll extends Application {
                     @Override
                     protected Integer call(){
                         gameIsOn=false;
+                        
                         while(!gameIsOn){
                             try{
                                 Thread.sleep(1000);
@@ -75,6 +86,7 @@ public class TestAll extends Application {
                 
                         closeGameService.restart();
                         restartGameService.restart();
+                        
                     }
                 };
             }
@@ -87,7 +99,7 @@ public class TestAll extends Application {
                 return new Task<Integer>(){
                     @Override
                     protected Integer call(){
-                        while(gameIsOn && !backgroundPane.closeGame){
+                        while((gameIsOn && !backgroundPane.closeGame) || (gameLost && !loseMenu.closeGame) || ( gameWon && !winMenu.closeGame)){
                             try{
                                 Thread.sleep(500);
                             }
@@ -98,7 +110,6 @@ public class TestAll extends Application {
                     @Override
                     protected void succeeded(){
                         restartGameService.cancel();
-                        System.out.println("closing game");
                         primaryStage.close();
                     }
                 };
@@ -111,7 +122,7 @@ public class TestAll extends Application {
                 return new Task<Integer>(){
                     @Override
                     protected Integer call(){
-                        while(gameIsOn && !backgroundPane.restartGame){//keep checking while pauseMenu's restart button doens't get pressed
+                        while((gameIsOn && !backgroundPane.restartGame)|| (gameLost && !loseMenu.restartGame) || (gameWon && !winMenu.restartGame)){//keep checking while pauseMenu's restart button doens't get pressed
                             try{
                                 Thread.sleep(500);
                             }
@@ -122,6 +133,10 @@ public class TestAll extends Application {
                     @Override
                     protected void succeeded(){
                         closeGameService.cancel();
+                        switchToWinPane.cancel();
+                        switchToGamePane=new SwitchToGamePane();
+                        closeGameService=new CloseGameService();
+                        switchToWinPane=new SwitchToWinLosePane();
                         backgroundPane.kill();
                         
                         startMenu=new StartMenu();
@@ -129,6 +144,7 @@ public class TestAll extends Application {
                         primaryStage.setScene(scene);
                         primaryStage.show();
                         
+
                         switchToGamePane.restart();
                     }
                 };
@@ -136,7 +152,7 @@ public class TestAll extends Application {
         } 
         
 
-        class SwitchToWinPane extends Service<Integer>{//this task loops to check is the start game button was pressed in StartMenu scene
+        class SwitchToWinLosePane extends Service<Integer>{//this task loops to check is the start game button was pressed in StartMenu scene
             @Override 
             protected Task<Integer> createTask(){
                 return new Task<Integer>(){
@@ -159,10 +175,20 @@ public class TestAll extends Application {
                         restartGameService.cancel();
                         backgroundPane.kill();
 
-                        winLoseMenu.gameWon(true);
-                        scene=new Scene(winLoseMenu);
+                        if(backgroundPane.gameWon){
+                            gameWon=true;
+                            //winMenu=new WinMenu();
+                            scene=new Scene(winMenu);
+                        }
+                        if(backgroundPane.gameLost){
+                            gameLost=true;
+                            //loseMenu=new LoseMenu();
+                            scene=new Scene(loseMenu);
+                        }
                         primaryStage.setScene(scene);
                         primaryStage.show();
+                        restartGameService.restart();
+                        closeGameService.restart();
                     }
                 };
             }
