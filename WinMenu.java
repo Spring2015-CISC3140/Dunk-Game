@@ -24,8 +24,18 @@ public class WinMenu extends Pane {
         winnerBanner();
         super.getChildren().add(apane);
         
+        Image restartImage;//try to get restart image from class path, if not found then load it from url
+        try{
+            restartImage=new Image(getClass().getResource("Media/restart.png").toExternalForm());
+        }
+        catch(Exception e){restartImage=new Image("https://openclipart.org/image/800px/svg_to_png/212123/rodentia-icons_view-refresh.png");}
+        
+        ImageView restartView=new ImageView(restartImage);
+        restartView.setFitHeight(20);
+        restartView.setFitWidth(20);
+        
         //Adds Restart button and quit game buttons.
-        Button RestartGame = new Button("Restart?");
+        Button RestartGame = new Button("Restart?",restartView);
         RestartGame.setPrefSize(120, 50);
         RestartGame.setStyle("-fx-background-color: #3ADF00;");
         RestartGame.setTextFill(Color.BLUE);
@@ -38,7 +48,18 @@ public class WinMenu extends Pane {
         AnchorPane.setBottomAnchor(RestartGame, 30.0);
         AnchorPane.setRightAnchor(RestartGame, 20.0);
         
-        Button QuitGame = new Button("Quit?");
+        //loading a picture of a red x to add to the button
+        Image xImage;//try loading it from local classpath, and if not then from url
+        try{
+            xImage=new Image(getClass().getResource("Media/X.png").toExternalForm());
+        }
+        catch(Exception e){xImage=new Image("https://openclipart.org/image/800px/svg_to_png/15815/Arnoud999-Right-or-wrong-5.png");}
+        
+        ImageView xView=new ImageView(xImage);
+        xView.setFitHeight(20);
+        xView.setFitWidth(20);        
+        
+        Button QuitGame = new Button("Quit?",xView);
         QuitGame.setPrefSize(120, 50);
         QuitGame.setStyle("-fx-background-color: #3ADF00;");
         QuitGame.setTextFill(Color.BLUE);
@@ -73,3 +94,4 @@ public class WinMenu extends Pane {
     }
                 
 }
+
