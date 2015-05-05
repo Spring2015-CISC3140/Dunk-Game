@@ -1,3 +1,9 @@
+/*
+this displays the start menu, along with the character selection.
+when a character is selected it allows the user to press the start game button
+*/
+package DunkAProf;
+
 import javafx.scene.paint.Color;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
