@@ -1,3 +1,9 @@
+/*this is the pause menu that is to be used only by backgroundPane.java
+the pause menu allows for a restart, quit, or return to game,
+and also a sound off/on option
+*/
+package DunkAProf;
+
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -222,3 +228,5 @@ public class PauseMenu extends Pane {
     } 
     
 }
+
+
