@@ -1,4 +1,8 @@
+/*shows the preview of a character that is going to be selected within
+the startMenu.java class
 
+this is a class only used within StartMenu.java
+*/
 package DunkAProf;
 
 import javafx.scene.layout.*;
@@ -26,19 +30,19 @@ public class CharacterPreview extends Pane{
             Image character;
             ImageView characterView=new ImageView();
             if(professor){
-                character=new Image(getClass().getResource("Professor1.png").toExternalForm());
+                character=new Image(getClass().getResource("Media/Professor1.png").toExternalForm());
                 characterView=new ImageView(character);
                 characterView.setFitHeight(character.getHeight()*0.65);
                 characterView.setFitWidth(character.getWidth()*0.65);               
             }
             if(deen){
-                character=new Image(getClass().getResource("Deen1.png").toExternalForm());
+                character=new Image(getClass().getResource("Media/Deen1.png").toExternalForm());
                 characterView=new ImageView(character);
                 characterView.setFitHeight(character.getHeight()*0.65);
                 characterView.setFitWidth(character.getWidth()*0.65);                
             }
             if(trustee){
-                character=new Image(getClass().getResource("Trustee1.png").toExternalForm());
+                character=new Image(getClass().getResource("Media/Trustee1.png").toExternalForm());
                 characterView=new ImageView(character);
                 characterView.setFitHeight(character.getHeight()*0.65);
                 characterView.setFitWidth(character.getWidth()*0.65);                
