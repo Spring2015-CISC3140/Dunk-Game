@@ -32,12 +32,13 @@ public class BackgroundPane extends Pane {
     
     boolean closeGame=false, restartGame=false;/*the class that created an object of this class must check if one of these turns true, if the pause menu 
     object has restart button pressed, then restartGame=true, if the pause menu object has quit button pressed then closeGame=true*/
-    boolean professor, deen, trustee;//only one of them should be true, and the correct character is displayed depending on which one is true
+    boolean professor, dean, trustee;//only one of them should be true, and the correct character is displayed depending on which one is true
     
     boolean gameWon = false, gameLost=false;
     boolean continueToNextScene=false;//the class that creates an object of this class, will switch to the win/lose menu if this is true
     
     private AudioClip splashSound;//this is the splashing sound that will play when gameWon is true, and is activated by fallingSeat(), and song is loaded by constructor
+    private AudioClip ballHitSound;//this is the sound that will be played when the ball hits the target
     
     private Canvas seatCanvas = new Canvas(150, 300);//this canvas contains the backboard and the seat the character will sit on
     private ActivateSeat activateSeat=new ActivateSeat();//if gameWon=true, start the animation for the seat falling, and the character falling
@@ -64,16 +65,17 @@ public class BackgroundPane extends Pane {
     private int splashX, splashY, count3=0;
     
     private MainGameplayPane mainGameplay;//will contains the actual game play that will over lap the background. An object is created in gamePlay()
+    private BallHitService ballHitService=new BallHitService();
     
     private PauseMenu pauseMenu;//will contain the pause menu that will over lap the background and mainGamePlay. An object is created in pauseButton()
 
-    BackgroundPane(boolean professor, boolean deen, boolean trustee, boolean soundOn) {
+    BackgroundPane(boolean professor, boolean dean, boolean trustee, boolean soundOn) {
         super.setHeight(HEIGHT);
         super.setWidth(WIDTH);
         apane.setPrefSize(WIDTH, HEIGHT);//pane will contain all canvases and images that are created in the BackgroundPane class
         
         this.professor=professor;
-        this.deen=deen;
+        this.dean=dean;
         this.trustee=trustee;
         this.soundOn=soundOn;
 
@@ -90,6 +92,13 @@ public class BackgroundPane extends Pane {
         }catch(Exception e){
             System.out.println(e);
         }
+        
+        try{//load ball hit sound that will play when ball hits a target
+            URL ballHitResource=getClass().getResource("Media/BallHit.wav");
+            ballHitSound=new AudioClip(ballHitResource.toString());
+        }catch(Exception e){
+            System.out.println(e);
+        }        
         
         try{//load image of a splash be displayed, and that will grow when game is won
             splashImage=new Image(getClass().getResource("Media/Splash2.png").toExternalForm());
@@ -136,6 +145,7 @@ public class BackgroundPane extends Pane {
 
         //(new Test()).start();
         gamePlay(); //creates an object that will overlap the background, that will display the main game play, and changes gameWon or gameLost booleans
+        ballHitService.start();
         
         apane.getChildren().add(splashCanvas);//adds a canvas that will display a big growing splash when gameWon is true
         
@@ -149,7 +159,7 @@ public class BackgroundPane extends Pane {
             Image dunkTank = new Image(getClass().getResource("Media/WaterTankCutOut.png").toExternalForm());
             dunkTankView = new ImageView(dunkTank);
         }
-        if (deen) {
+        if (dean) {
             Image dunkTank = new Image(getClass().getResource("Media/BubbleTankCutOut.png").toExternalForm());
             dunkTankView = new ImageView(dunkTank);
         }
@@ -205,7 +215,7 @@ public class BackgroundPane extends Pane {
             characterX=125;
             characterY=25;
         }
-        else if(deen){
+        else if(dean){
             character=new Image(getClass().getResource("Media/sit 1.png").toExternalForm());
             characterX=125;
             characterY=25;
@@ -260,10 +270,11 @@ public class BackgroundPane extends Pane {
         timeline.setCycleCount(3);
         count2=0;
         
+        ballHitSound.play(0.5);
         
         KeyFrame shake=new KeyFrame(Duration.seconds(0.2), e->{
             characterGraphics.clearRect(0, 0, 200, 300);
-            if(count==0){
+            if(count2==0){
                 characterY-=3;
                 characterGraphics.drawImage(character, characterX, characterY, character.getWidth()*decreaseBy, character.getHeight()*decreaseBy);
                 if(trustee)
@@ -271,7 +282,7 @@ public class BackgroundPane extends Pane {
                 else
                     characterGraphics.drawImage(tearDrop, characterX+35, characterY+5, tearDrop.getWidth()*0.1, tearDrop.getHeight()*0.1);
             }
-            if(count==1){
+            if(count2==1){
                 characterY+=3;
                 characterGraphics.drawImage(character, characterX, characterY, character.getWidth()*decreaseBy, character.getHeight()*decreaseBy);
                 if(trustee)
@@ -279,10 +290,10 @@ public class BackgroundPane extends Pane {
                 else
                     characterGraphics.drawImage(tearDrop, characterX+35, characterY+5, tearDrop.getWidth()*0.1, tearDrop.getHeight()*0.1);
             }
-            if(count==2){
+            if(count2==2){
                 characterGraphics.drawImage(character, characterX, characterY, character.getWidth()*decreaseBy, character.getHeight()*decreaseBy);
             }
-            count++;
+            count2++;
         });
         
         timeline.getKeyFrames().add(shake);
@@ -458,8 +469,8 @@ public class BackgroundPane extends Pane {
                         Thread.sleep(2770);
                     } catch (Exception e) {
                     }
-                    gameLost = true;
-                    continueToNextScene=true;
+                    gameWon = true;
+                    //continueToNextScene=true;
                     return 0;
                 }
             };
@@ -475,7 +486,7 @@ public class BackgroundPane extends Pane {
                 protected Integer call() {
                     while (!gameWon) {
                         try {
-                            Thread.sleep(3000);
+                            Thread.sleep(500);
                         } catch (Exception e) {
                         }
                     }
@@ -552,7 +563,48 @@ public class BackgroundPane extends Pane {
         gameLostService.start();
     
     }
-   
+    class BallHitService extends Service<Integer>{// waits for the ball to hit a target in mainGameplay
+        @Override
+        protected Task<Integer> createTask(){
+            return new Task<Integer>(){
+                @Override
+                protected Integer call(){
+                    while(!mainGameplay.ballHit){
+                        try{
+                            Thread.sleep(100);
+                        }
+                        catch(Exception e){System.out.println(e);}
+                    }
+                    return 0;
+                }
+                @Override
+                protected void succeeded(){
+                    if(!mainGameplay.gameWon || !mainGameplay.gameLost){
+                        characterStartled();
+                        (new BallHitRestartService()).start();
+                    }
+                }
+            };
+        }
+    }  
+    class BallHitRestartService extends Service<Integer>{// waits for the ball to hit a target in mainGameplay
+        @Override
+        protected Task<Integer> createTask(){
+            return new Task<Integer>(){
+                @Override
+                protected Integer call(){
+                    try{Thread.sleep(800);}catch(Exception e){}
+                    mainGameplay.ballHit=false;
+                    return 0;
+                }
+                @Override
+                protected void succeeded(){
+                    ballHitService.restart();
+                    mainGameplay.reset();
+                }
+            };
+        }
+    }     
     
     void pauseButton(){//adds a pause button to top of screen, and displays the pause pane, with the pause options when it is pressed
         //loading a pause icon
