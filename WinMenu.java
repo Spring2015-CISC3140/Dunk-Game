@@ -4,7 +4,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
-
+import javafx.scene.media.*;
+import java.net.*;
 /*
 Standard win menu.
 */
@@ -15,14 +16,25 @@ public class WinMenu extends Pane {
     boolean closeGame = false;
     boolean restartGame=false;
     private AnchorPane apane = new AnchorPane();
+    private boolean professor, dean, trustee;
 
-    WinMenu() {
+    WinMenu(boolean professor, boolean dean, boolean trustee) {
         super();
         super.setPrefSize(WIDTH, HEIGHT);
         apane.setPrefSize(WIDTH, HEIGHT);
         apane.setStyle("-fx-background-color: #1C1C1C;");
+        
+        URL applauseResource=getClass().getResource("Media/Audience_Applause.mp3");
+        AudioClip applauseSound=new AudioClip(applauseResource.toString());
+        applauseSound.play(0.5);        
+        
         winnerBanner();
         super.getChildren().add(apane);
+        
+        this.professor=professor;
+        this.dean=dean;
+        this.trustee=trustee;
+        characterView(professor, dean, trustee);
         
         Image restartImage;//try to get restart image from class path, if not found then load it from url
         try{
@@ -37,8 +49,8 @@ public class WinMenu extends Pane {
         //Adds Restart button and quit game buttons.
         Button RestartGame = new Button("Restart?",restartView);
         RestartGame.setPrefSize(120, 50);
-        RestartGame.setStyle("-fx-background-color: #3ADF00;");
-        RestartGame.setTextFill(Color.BLUE);
+        RestartGame.setStyle("-fx-background-color: #585858;");
+        RestartGame.setTextFill(Color.WHITE);
         
         RestartGame.setOnMouseClicked(e ->{
             System.out.println("test");
@@ -61,8 +73,8 @@ public class WinMenu extends Pane {
         
         Button QuitGame = new Button("Quit?",xView);
         QuitGame.setPrefSize(120, 50);
-        QuitGame.setStyle("-fx-background-color: #3ADF00;");
-        QuitGame.setTextFill(Color.BLUE);
+        QuitGame.setStyle("-fx-background-color: #585858;");
+        QuitGame.setTextFill(Color.WHITE);
         
         QuitGame.setOnMouseClicked(e ->{
             System.out.println("test");
@@ -88,10 +100,15 @@ public class WinMenu extends Pane {
         banner.getChildren().addAll(splashView, youWon);
         apane.getChildren().add(banner);
         //Sets to middle of pane.
-        AnchorPane.setTopAnchor(banner, 200.0);
+        AnchorPane.setTopAnchor(banner, 75.0);
         AnchorPane.setLeftAnchor(banner, 200.0);
         
     }
-                
+    
+    void characterView(boolean professor, boolean dean, boolean trustee){
+        CharacterDunked characterDunked=new CharacterDunked(professor, dean, trustee);
+        apane.getChildren().add(characterDunked);
+        AnchorPane.setTopAnchor(characterDunked, 225.0);
+        AnchorPane.setLeftAnchor(characterDunked, 325.0);
+    }
 }
-
