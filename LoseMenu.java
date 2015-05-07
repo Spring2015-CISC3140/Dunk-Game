@@ -4,6 +4,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
+import javafx.scene.media.*;
+import java.net.*;
 
 /*
 Standard lose menu.
@@ -15,14 +17,24 @@ public class LoseMenu extends Pane {
     boolean closeGame = false;
     boolean restartGame=false;
     private AnchorPane apane = new AnchorPane();
-
-    LoseMenu() {
+    private boolean professor, dean, trustee;
+    
+    LoseMenu(boolean professor, boolean dean, boolean trustee) {
         super();
         super.setPrefSize(WIDTH, HEIGHT);
         apane.setPrefSize(WIDTH, HEIGHT);
         apane.setStyle("-fx-background-color: #1C1C1C;");
+        
+        URL booResource=getClass().getResource("Media/Crowd Boo.mp3");
+        AudioClip booSound=new AudioClip(booResource.toString());
+        booSound.play(0.5);
+        
         LoserBanner();
         super.getChildren().add(apane);
+        
+        this.professor=professor;
+        this.dean=dean;
+        this.trustee=trustee;        
         
         Image restartImage;//try to get restart image from class path, if not found then load it from url
         try{
@@ -37,8 +49,8 @@ public class LoseMenu extends Pane {
         //Adds Restart button and quit game buttons.
         Button RestartGame = new Button("Restart?",restartView);
         RestartGame.setPrefSize(120, 50);
-        RestartGame.setStyle("-fx-background-color: #3ADF00;");
-        RestartGame.setTextFill(Color.BLUE);
+        RestartGame.setStyle("-fx-background-color: #585858;");
+        RestartGame.setTextFill(Color.WHITE);
         
         RestartGame.setOnMouseClicked(e ->{
             restartGame=true;
@@ -60,8 +72,8 @@ public class LoseMenu extends Pane {
         
         Button QuitGame = new Button("Quit?",xView);
         QuitGame.setPrefSize(120, 50);
-        QuitGame.setStyle("-fx-background-color: #3ADF00;");
-        QuitGame.setTextFill(Color.BLUE);
+        QuitGame.setStyle("-fx-background-color: #585858;");
+        QuitGame.setTextFill(Color.WHITE);
         
         QuitGame.setOnMouseClicked(e ->{
             closeGame=true;
@@ -85,9 +97,13 @@ public class LoseMenu extends Pane {
         banner.getChildren().addAll(splashView, youWon);
         apane.getChildren().add(banner);
         //Sets to middle of pane.
-        AnchorPane.setTopAnchor(banner, 200.0);
+        AnchorPane.setTopAnchor(banner, 75.0);
         AnchorPane.setLeftAnchor(banner, 200.0);
     }
 
+    void characterView(boolean professor, boolean dean, boolean trustee){
+        
+    }    
 }
+
 
