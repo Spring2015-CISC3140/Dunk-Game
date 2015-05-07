@@ -17,13 +17,13 @@ public class CharacterPreview extends Pane{
     
     //this is so that all of the booleans can be passed from the StartMenu class to this constructor, 
     //so that pane can show the appropriate animation
-    public CharacterPreview(boolean professor, boolean deen, boolean trustee){
+    public CharacterPreview(boolean professor, boolean dean, boolean trustee){
         super();
         super.setPrefWidth(WIDTH);
         super.setPrefHeight(HEIGHT);
         
         
-        if(!professor && !deen && !trustee){
+        if(!professor && !dean && !trustee){
             super.setOpacity(0.0);
         }
         else{
@@ -35,7 +35,7 @@ public class CharacterPreview extends Pane{
                 characterView.setFitHeight(character.getHeight()*0.65);
                 characterView.setFitWidth(character.getWidth()*0.65);               
             }
-            if(deen){
+            if(dean){
                 character=new Image(getClass().getResource("Media/Deen1.png").toExternalForm());
                 characterView=new ImageView(character);
                 characterView.setFitHeight(character.getHeight()*0.65);
