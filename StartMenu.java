@@ -37,7 +37,7 @@ public class StartMenu extends Pane{
     public boolean soundIsOn=true;
     //this is for later for when you can pick your character
     public boolean professor;
-    public boolean deen;
+    public boolean dean;
     public boolean trustee;
     //will be true when startGame button is pressed
     public boolean continueToNextScene=false;
@@ -256,9 +256,9 @@ public class StartMenu extends Pane{
        
        //this will be the pane just to hold the deen button
        StackPane deenPane=new StackPane();
-       Label deenLabel=new Label("Deen");
-       deenLabel.setFont(new Font("Ariel", 15));
-       deenPane.getChildren().addAll(plankImage2, deenLabel);
+       Label deanLabel=new Label("Dean");
+       deanLabel.setFont(new Font("Ariel", 15));
+       deenPane.getChildren().addAll(plankImage2, deanLabel);
        
        //this will be the pane just to hold the trustee button
        StackPane trusteePane=new StackPane();
@@ -273,10 +273,10 @@ public class StartMenu extends Pane{
        professorPane.setOnMouseClicked(e ->{
            clickService.reset();//to make sure that the click service is in ready state before starting it
            professorLabel.setTextFill(Color.WHITE);
-           deenLabel.setTextFill(Color.BLACK);
+           deanLabel.setTextFill(Color.BLACK);
            trusteeLabel.setTextFill(Color.BLACK);
            professor=true;
-           deen=false;
+           dean=false;
            trustee=false;
            startGame.setDisable(false);
            clickService.start();//starts the thread in the click service class, to make a sound
@@ -287,9 +287,9 @@ public class StartMenu extends Pane{
         deenPane.setOnMouseClicked(e ->{
            clickService.reset();//to make sure that the click service is in ready state before starting it
            professorLabel.setTextFill(Color.BLACK);
-           deenLabel.setTextFill(Color.WHITE);
+           deanLabel.setTextFill(Color.WHITE);
            trusteeLabel.setTextFill(Color.BLACK);
-           deen=true;
+           dean=true;
            professor=false;
            trustee=false;
            startGame.setDisable(false);
@@ -301,9 +301,9 @@ public class StartMenu extends Pane{
         trusteePane.setOnMouseClicked(e ->{
            clickService.reset();//to make sure that the click service is in ready state before starting it
            professorLabel.setTextFill(Color.BLACK);
-           deenLabel.setTextFill(Color.BLACK);
+           deanLabel.setTextFill(Color.BLACK);
            trusteeLabel.setTextFill(Color.WHITE);
-           deen=false;
+           dean=false;
            professor=false;
            trustee=true;
            startGame.setDisable(false);
@@ -328,7 +328,7 @@ public class StartMenu extends Pane{
             apane.getChildren().remove(characterPreview);
         }
         
-       characterPreview=new CharacterPreview(professor, deen, trustee);
+       characterPreview=new CharacterPreview(professor, dean, trustee);
        apane.getChildren().add(characterPreview);
        AnchorPane.setBottomAnchor(characterPreview, 30.0);
        AnchorPane.setLeftAnchor(characterPreview, 315.0);
@@ -382,3 +382,4 @@ public class StartMenu extends Pane{
     
    
 }
+
