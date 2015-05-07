@@ -21,9 +21,9 @@ public class TestAll extends Application {
     
     private StartMenu startMenu=new StartMenu();//startMenu is a subclass of the pane class
     private BackgroundPane backgroundPane;
-    private LoseMenu loseMenu=new LoseMenu();
-    private WinMenu winMenu=new WinMenu();
-    private boolean professor, deen, trustee, soundOn;
+    private LoseMenu loseMenu;
+    private WinMenu winMenu;
+    private boolean professor, dean, trustee, soundOn;
     
     private Stage primaryStage=new Stage();
     private Scene scene=new Scene(startMenu);//this is the scene that will hold each pane class
@@ -74,11 +74,11 @@ public class TestAll extends Application {
                     @Override
                     protected void succeeded(){
                         professor=startMenu.professor;
-                        deen=startMenu.deen;
+                        dean=startMenu.dean;
                         trustee=startMenu.trustee;
                         soundOn=startMenu.soundIsOn;
                 
-                        scene=new Scene(backgroundPane=new BackgroundPane(professor,deen,trustee,soundOn));
+                        scene=new Scene(backgroundPane=new BackgroundPane(professor,dean,trustee,soundOn));
                         primaryStage.setScene(scene);
                         primaryStage.show();
                 
@@ -160,10 +160,11 @@ public class TestAll extends Application {
                     protected Integer call(){
                         while(gameIsOn){
                             try{
-                                    Thread.sleep(1000);
+                                    Thread.sleep(500);
                             }
                             catch(Exception e){System.out.println(e);}
                             if(backgroundPane.continueToNextScene){
+                                try{Thread.sleep(1000);}catch(Exception e){}
                                 gameIsOn=false;
                             }
                         }
@@ -177,12 +178,12 @@ public class TestAll extends Application {
 
                         if(backgroundPane.gameWon){
                             gameWon=true;
-                            //winMenu=new WinMenu();
+                            winMenu=new WinMenu(professor, dean, trustee);
                             scene=new Scene(winMenu);
                         }
                         if(backgroundPane.gameLost){
                             gameLost=true;
-                            //loseMenu=new LoseMenu();
+                            loseMenu=new LoseMenu(professor, dean, trustee);
                             scene=new Scene(loseMenu);
                         }
                         primaryStage.setScene(scene);
