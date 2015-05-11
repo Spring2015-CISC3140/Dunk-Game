@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.concurrent.*;
 
 
-public class TestAll extends Application {
+public class DunkAProfMain extends Application {
     
     private StartMenu startMenu=new StartMenu();//startMenu is a subclass of the pane class
     private BackgroundPane backgroundPane;
@@ -42,16 +42,17 @@ public class TestAll extends Application {
         this.primaryStage.setWidth(800);
         this.primaryStage.setHeight(600);
         this.primaryStage.setTitle("Dunk-A-Prof");
-        
-                
-        scene.getStylesheets().add("http://fonts.googleapis.com/css?family=Chewy");//loading a font from google
-        scene.getStylesheets().add("http://fonts.googleapis.com/css?family=Sigmar+One");
-        
+
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         
+        
+        scene.getStylesheets().add("http://fonts.googleapis.com/css?family=Chewy");//loading a font from google
+        scene.getStylesheets().add("http://fonts.googleapis.com/css?family=Sigmar+One");
+        
         switchToGamePane.start();//this will allow for a thread to execute a task in the background
     }
+
     
         class SwitchToGamePane extends Service<Integer>{
             protected Task<Integer> createTask(){
@@ -139,12 +140,16 @@ public class TestAll extends Application {
                         switchToWinPane=new SwitchToWinLosePane();
                         backgroundPane.kill();
                         
+                        if(gameLost && loseMenu.restartGame)
+                            loseMenu.kill();
+                        if(gameWon && winMenu.restartGame)
+                            winMenu.kill();
+                        
                         startMenu=new StartMenu();
                         scene=new Scene(startMenu);
                         primaryStage.setScene(scene);
                         primaryStage.show();
                         
-
                         switchToGamePane.restart();
                     }
                 };
@@ -164,7 +169,7 @@ public class TestAll extends Application {
                             }
                             catch(Exception e){System.out.println(e);}
                             if(backgroundPane.continueToNextScene){
-                                try{Thread.sleep(1000);}catch(Exception e){}
+                                try{Thread.sleep(800);}catch(Exception e){}
                                 gameIsOn=false;
                             }
                         }
@@ -178,12 +183,12 @@ public class TestAll extends Application {
 
                         if(backgroundPane.gameWon){
                             gameWon=true;
-                            winMenu=new WinMenu(professor, dean, trustee);
+                            winMenu=new WinMenu(professor, dean, trustee, backgroundPane.soundOn);
                             scene=new Scene(winMenu);
                         }
-                        if(backgroundPane.gameLost){
+                        else if(backgroundPane.gameLost){
                             gameLost=true;
-                            loseMenu=new LoseMenu(professor, dean, trustee);
+                            loseMenu=new LoseMenu(professor, dean, trustee, backgroundPane.soundOn);
                             scene=new Scene(loseMenu);
                         }
                         primaryStage.setScene(scene);
@@ -195,7 +200,6 @@ public class TestAll extends Application {
             }
         }
         
-
     
     public static void main(String[] args) {
         Application.launch(args);
