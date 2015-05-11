@@ -16,7 +16,6 @@ import java.net.*;
 import javafx.scene.canvas.*;
 import javafx.animation.*;
 import javafx.util.Duration;
-import javafx.scene.media.*;
 import java.util.*;
 
 public class BackgroundPane extends Pane {
@@ -39,6 +38,7 @@ public class BackgroundPane extends Pane {
     
     private AudioClip splashSound;//this is the splashing sound that will play when gameWon is true, and is activated by fallingSeat(), and song is loaded by constructor
     private AudioClip ballHitSound;//this is the sound that will be played when the ball hits the target
+    private AudioClip screamSound[];//this is an array of screams that will be picked randomly to play
     
     private Canvas seatCanvas = new Canvas(150, 300);//this canvas contains the backboard and the seat the character will sit on
     private ActivateSeat activateSeat=new ActivateSeat();//if gameWon=true, start the animation for the seat falling, and the character falling
@@ -111,6 +111,13 @@ public class BackgroundPane extends Pane {
         }catch(Exception e){
             System.out.println(e);
         }
+        
+        try{
+            URL scream1=getClass().getResource("Media/Scream1.mp3");
+            URL scream2=getClass().getResource("Media/Scream2.mp3");
+            URL scream3=getClass().getResource("Media/Scream3.mp3");
+            screamSound=new AudioClip[]{(new AudioClip(scream1.toString())),(new AudioClip(scream2.toString())),(new AudioClip(scream3.toString()))};
+        }catch(Exception e){System.out.println(e);}
 
         startSongService();//starts service to play background music, plays until soundOn is false
 
@@ -229,9 +236,13 @@ public class BackgroundPane extends Pane {
 
     }
 
-    void fallingSeat() {//starts the animation of a seat falling
+    void dunkCharacter() {//starts the animation of a character falling
         exclamation();
         
+        if(soundOn){
+            Random rand=new Random();
+            screamSound[rand.nextInt(3)].play(0.5);
+        }
         if(soundOn)
             splashSound.play(1.0);
         
@@ -270,7 +281,8 @@ public class BackgroundPane extends Pane {
         timeline.setCycleCount(3);
         count2=0;
         
-        ballHitSound.play(0.5);
+        if(soundOn)
+            ballHitSound.play(0.5);
         
         KeyFrame shake=new KeyFrame(Duration.seconds(0.2), e->{
             characterGraphics.clearRect(0, 0, 200, 300);
@@ -412,11 +424,13 @@ public class BackgroundPane extends Pane {
             return new Task<Integer>() {
                 @Override
                 protected Integer call() {
-                    songLoop.setCycleCount(AudioClip.INDEFINITE);
-                    songLoop.play(0.1);
+                    if(soundOn){
+                        songLoop.setCycleCount(AudioClip.INDEFINITE);
+                        songLoop.play(0.1);
+                    }
                     while (soundOn) {
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(100);
                         } catch (Exception e) {
                         }
                     }
@@ -495,7 +509,7 @@ public class BackgroundPane extends Pane {
 
                 @Override
                 protected void succeeded() {
-                    fallingSeat();
+                    dunkCharacter();
                 }
             };
         }
@@ -508,7 +522,7 @@ public class BackgroundPane extends Pane {
     }
     
     void gamePlay(){//adds a pane that will display the main game play
-        mainGameplay=new MainGameplayPane();
+        mainGameplay=new MainGameplayPane(soundOn);
         
         apane.getChildren().add(mainGameplay);
         
@@ -543,7 +557,7 @@ public class BackgroundPane extends Pane {
                     protected Integer call(){
                         while(!mainGameplay.gameLost){
                             try{
-                                Thread.sleep(500);
+                                Thread.sleep(100);
                             }
                             catch(Exception e){System.out.println(e);}
                         }
@@ -662,6 +676,8 @@ public class BackgroundPane extends Pane {
                     }
                     @Override
                     protected void succeeded(){
+                        mainGameplay.gameplayPaused=false;
+                        mainGameplay.soundOn=pauseMenu.soundIsOn;
                         apane.getChildren().remove(pauseMenu);//removed the pauseMenu pane from the primaryStage, thus returning to the previous view
                         soundOn=pauseMenu.soundIsOn;
                     }
@@ -701,6 +717,8 @@ public class BackgroundPane extends Pane {
             pauseMenu.soundIsOn=soundOn;//you must tell the pause menu if the sound is on before adding it to the scene
             pauseMenu.pauseInProgress=true;//you must tell pause menu that the pause is in progress before adding it to the scene
             apane.getChildren().add(pauseMenu);
+            
+            mainGameplay.gameplayPaused=true;
             
             closeGameService.restart();//starts service to check if the quit button is pressed
             returnToGameService.restart();//starts service to check if return button is pressed
