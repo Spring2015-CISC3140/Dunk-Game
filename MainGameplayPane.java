@@ -63,19 +63,24 @@ public class MainGameplayPane extends Pane {
     private boolean powerGuageForward=true;
     
     private boolean setUpState=false, ballThrownState=false;//this goes into two states, when the ball is being thrown and when angle and power is being set up
+    boolean soundOn;
+    boolean gameplayPaused=false;
     
     private AudioClip swooshSound;
     
-    MainGameplayPane(){
+    MainGameplayPane(boolean soundOn){
         super.setHeight(HEIGHT);
         super.setWidth(WIDTH);
         
         this.setFocusTraversable(true);
         
+        this.soundOn=soundOn;
+        
         setUpState=true;
         ballAndTarget();
+        rotateXY(45);
         drawAngle();//draws the two lines forming an angle, the ball and the target
-        addPowerGuage();//adds a gradient rectangle to be used for the power guage  
+        addPowerGauge();//adds a gradient rectangle to be used for the power gauge  
         score();
  
         super.getChildren().addAll(ballTargetCanvas, angleCanvas, powerCanvas, scoreCanvas);
@@ -90,7 +95,7 @@ public class MainGameplayPane extends Pane {
         this.setOnKeyTyped(e->{
             if(e.getCharacter().matches("w") || e.getCharacter().matches("W")){
                 if(angle<90){
-                    if(setUpState){
+                    if(setUpState && !gameplayPaused ){
                         rotateXY(angle+5);
                         drawAngle();
                     }
@@ -98,24 +103,23 @@ public class MainGameplayPane extends Pane {
             }
             if(e.getCharacter().matches("s") || e.getCharacter().matches("S")){
                 if(angle>0){  
-                    if(setUpState){
+                    if(setUpState && !gameplayPaused){
                         rotateXY(angle-5);
                         drawAngle();
                     }
                 }
             }
             if(e.getCharacter().matches(" ")){
-                if(setUpState){
+                if(setUpState && !gameplayPaused){
                     setUpState=false;
                     ballThrownState=true;
-                    swooshSound.play(0.5);
+                    if(soundOn)
+                        swooshSound.play(0.5);
                 }
             }
         });
         
-        //drawKeys();
-        //(new GameWonService()).start();
-        (new GameLostService()).start();
+
      }
     
     void drawAngle(){
@@ -135,7 +139,7 @@ public class MainGameplayPane extends Pane {
         currentEndLineY=(int)(((END_OF_LINE_X-ANGLE_PIVOT_X)*Math.sin(Math.toRadians(360-degrees)))+((END_OF_LINE_Y-ANGLE_PIVOT_Y)*Math.cos(Math.toRadians(360-degrees)))+ANGLE_PIVOT_Y);
     }
     
-    void addPowerGuage(){//draws a gradient rectangle for the power guage
+    void addPowerGauge(){//draws a gradient rectangle for the power guage
         int widthOfGradient=200, heightOfGradient=20;
         int gradientX=START_BALL_X, gradientY=(int)(START_BALL_Y+ball.getHeight()*0.04+10);
                 
@@ -147,7 +151,7 @@ public class MainGameplayPane extends Pane {
         
         KeyFrame keyFrame=new KeyFrame(Duration.seconds(0.01), e->{
 
-            if(setUpState){
+            if(setUpState && !gameplayPaused){
                 powerContext.clearRect(0, 0, WIDTH, HEIGHT);
                 
                 powerContext.setFill(lg);
@@ -178,13 +182,13 @@ public class MainGameplayPane extends Pane {
         timeline.setCycleCount(Timeline.INDEFINITE);
         
         KeyFrame keyFrame=new KeyFrame(Duration.seconds(0.01), e->{
-            if(setUpState){
+            if(setUpState && !gameplayPaused){
                 ballTargetContext.clearRect(0, 0, WIDTH, HEIGHT);
                 //drawing a ball and a target
                 ballTargetContext.drawImage(target, TARGET_X, TARGET_Y, target.getWidth()*0.7, target.getHeight()*0.7); 
                 ballTargetContext.drawImage(ball, ballCurrentX, ballCurrentY, ball.getWidth()*0.04, ball.getHeight()*0.04);
             }
-            if(ballThrownState){
+            if(ballThrownState && !gameplayPaused){
                 ballTargetContext.clearRect(0, 0, WIDTH, HEIGHT);
 
                 time+=0.03;
@@ -204,16 +208,24 @@ public class MainGameplayPane extends Pane {
                         gameWon=true;
                     }
                     else{
+                        score();
                         ballHit=true;
                     }
                     ballThrownState=false;
 
                 }
-                if(ballCurrentX>WIDTH || ballCurrentY>HEIGHT ){
+                if(ballCurrentX>WIDTH || ballCurrentY>HEIGHT ){//misses
                     ballThrownState=false;
                     numberMissed+=1;
-                    score();
-                    reset();
+                    if(numberMissed<3){
+                        score();
+                        reset();
+                    }
+                    if(numberMissed==3){
+                        score();
+                        gameLost=true;
+                    }
+                    
                 }
             }
         });
@@ -235,51 +247,5 @@ public class MainGameplayPane extends Pane {
         scoreContext.fillText("Hits: "+numberHit+" Misses: "+numberMissed, 540, 30);
     }
     
-    /*class GameWonService extends Service<Integer>{// waits for the ball to hit a target in mainGameplay
-        @Override
-        protected Task<Integer> createTask(){
-            return new Task<Integer>(){
-                @Override
-                protected Integer call(){
-                   while(!gameWon){
-                       try{Thread.sleep(100);}catch(Exception e){}
-                       if(numberHit==3){
-                           gameWon=true;
-                       }
-                    }
-                   return 0;
-                }
-            };
-        }
-    } */
-
-    class GameLostService extends Service<Integer>{// waits for the ball to hit a target in mainGameplay
-        @Override
-        protected Task<Integer> createTask(){
-            return new Task<Integer>(){
-                @Override
-                protected Integer call(){
-                   while(!gameLost){
-                       try{Thread.sleep(100);}catch(Exception e){}
-                       if(numberMissed==3){
-                           gameLost=true;
-                       }
-                    }
-                   return 0;
-                }
-            };
-        }
-    
-    }     
-/*void drawKeys(){//draws the keys that will be used to interact with the game
-    keysContext.clearRect(0, 0, WIDTH, HEIGHT);
-    Image wKey=new Image(getClass().getResource("Media/letter_w.png").toExternalForm());
-        Image sKey=new Image(getClass().getResource("Media/letter_s.png").toExternalForm());
-        Image spaceKey=new Image(getClass().getResource("Media/space_key.png").toExternalForm());
-        if(!ballThrownState){
-        keysContext.drawImage(wKey, START_BALL_X+200, START_BALL_Y-150, wKey.getWidth()*0.1, wKey.getHeight()*0.1);
-        keysContext.drawImage(sKey, START_BALL_X+200, START_BALL_Y-50, sKey.getWidth()*0.1, sKey.getHeight()*0.1);
-    }
-} */   
-    
 }
+
