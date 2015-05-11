@@ -27,6 +27,8 @@ public class PauseMenu extends Pane {
     private URL blopResource;//resource for the blop sound 
     private AudioClip blop;//plays blop sound
     
+    private ControlsPane controlsPane;
+    
 
     PauseMenu(boolean soundIsOn){
         super();
@@ -177,7 +179,7 @@ public class PauseMenu extends Pane {
             pauseInProgress=false;
             if(soundIsOn){blopSound.restart();}//if sound if on, when button is clicked, a blop sound if played
         });
-        
+
         
         //restart game button
         Pane restartPane=new Pane();
@@ -205,12 +207,26 @@ public class PauseMenu extends Pane {
             if(soundIsOn){blopSound.restart();}//if sound if on, when button is clicked, a blop sound if played
         });
         
+        
+        //adding a button to view the controls
+        Button controls=new Button("Controls");
+        controls.setStyle("-fx-background-color: #585858;");
+        controls.setTextFill(Color.WHITE);
+        controls.setPrefWidth(BUTTONWIDTH);
+        controls.setPrefHeight(31);
+        
+        controls.setOnMouseClicked(e->{
+            controlsPane=new ControlsPane();
+                apane.getChildren().add(controlsPane);
+                (new QuitControlsService()).restart();
+        });
+        
         //adding all option buttons to a horizontal pane
-        hBox.getChildren().addAll(soundPane, quitPane, returnToGame, restartGame);
+        hBox.getChildren().addAll(soundPane, quitPane, returnToGame, restartGame, controls);
         
         apane.getChildren().add(hBox);//adding the horizontal pane of options to the main pane holding the pause menu
         AnchorPane.setBottomAnchor(hBox, 250.0);
-        AnchorPane.setLeftAnchor(hBox, 125.0);
+        AnchorPane.setLeftAnchor(hBox, 100.0);
     }
     
     //this is a service inner class that plays a blop sound when the service is started
@@ -226,7 +242,22 @@ public class PauseMenu extends Pane {
             };  
         } 
     } 
-    
+    class QuitControlsService extends Service<Integer>{
+        @Override
+        protected Task<Integer> createTask(){
+            return new Task<Integer>(){
+                @Override
+                protected Integer call(){
+                    while(!controlsPane.quitControl){
+                        try{Thread.sleep(100);}catch(Exception e){}
+                    }
+                    return 0;
+                }
+                protected void succeeded(){
+                    apane.getChildren().remove(controlsPane);
+                }
+            };  
+        } 
+    }  
 }
-
 
