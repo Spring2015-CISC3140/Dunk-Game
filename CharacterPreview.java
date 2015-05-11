@@ -36,7 +36,7 @@ public class CharacterPreview extends Pane{
                 characterView.setFitWidth(character.getWidth()*0.65);               
             }
             if(dean){
-                character=new Image(getClass().getResource("Media/Deen1.png").toExternalForm());
+                character=new Image(getClass().getResource("Media/Dean1.png").toExternalForm());
                 characterView=new ImageView(character);
                 characterView.setFitHeight(character.getHeight()*0.65);
                 characterView.setFitWidth(character.getWidth()*0.65);                
