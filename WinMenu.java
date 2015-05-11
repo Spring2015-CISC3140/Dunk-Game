@@ -1,3 +1,7 @@
+/*this is the page that will be displayed if the game is won,
+contains a 'you win' messege and a character look defeated and soaked,
+and the buttons to close or restart the game
+*/
 package DunkAProf;
 
 import javafx.scene.layout.*;
@@ -6,9 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 import javafx.scene.media.*;
 import java.net.*;
-/*
-Standard win menu.
-*/
+
 public class WinMenu extends Pane {
 
     private final double HEIGHT = 600;
@@ -17,16 +19,22 @@ public class WinMenu extends Pane {
     boolean restartGame=false;
     private AnchorPane apane = new AnchorPane();
     private boolean professor, dean, trustee;
+    private boolean soundOn;
+    private AudioClip applauseSound;
 
-    WinMenu(boolean professor, boolean dean, boolean trustee) {
+    WinMenu(boolean professor, boolean dean, boolean trustee, boolean soundOn) {
         super();
         super.setPrefSize(WIDTH, HEIGHT);
         apane.setPrefSize(WIDTH, HEIGHT);
         apane.setStyle("-fx-background-color: #1C1C1C;");
         
-        URL applauseResource=getClass().getResource("Media/Audience_Applause.mp3");
-        AudioClip applauseSound=new AudioClip(applauseResource.toString());
-        applauseSound.play(0.5);        
+        this.soundOn=soundOn;
+        
+        if(soundOn){
+            URL applauseResource=getClass().getResource("Media/Audience_Applause.mp3");
+            applauseSound=new AudioClip(applauseResource.toString());
+            applauseSound.play(0.5); 
+        }
         
         winnerBanner();
         super.getChildren().add(apane);
@@ -111,4 +119,12 @@ public class WinMenu extends Pane {
         AnchorPane.setTopAnchor(characterDunked, 225.0);
         AnchorPane.setLeftAnchor(characterDunked, 325.0);
     }
+    
+    void kill(){
+        if(soundOn){
+            if(applauseSound.isPlaying()){
+                applauseSound.stop();
+            }
+        }
+    }    
 }
