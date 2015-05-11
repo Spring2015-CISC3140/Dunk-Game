@@ -54,31 +54,18 @@ public class StartMenu extends Pane{
     
     
     
-    public StartMenu(){
+    public StartMenu(){        
+        //setting width and height of our main AnchorPane
+        apane.setPrefWidth(800);
+        apane.setPrefHeight(600);
+        
         //setting background image
         try{//try to load background image from local file, if not then from URL
             String backgroundPath= getClass().getResource("Media/Wood-HD-Wallpaper.jpg").toExternalForm();
             super.setStyle("-fx-background-image: url('"+backgroundPath+"')");
         }
         catch(Exception e){super.setStyle("-fx-background-image: url('http://burnlipo.com/wp-content/uploads/2013/06/Wood-HD-Wallpaper-10-Download.jpg')");}
-        
-        //setting width and height of our main AnchorPane
-        apane.setPrefWidth(800);
-        apane.setPrefHeight(600);
-        
-       logo();
-       
-       soundOnOff();
-        
-       startGameButton();
-      
-       characterSelection();
-       
-       setCharacterPreview();//sets the character preview object to the current characters selected state
-       
-       super.getChildren().add(apane);
-       
-       
+               
        //connection of url to local file, to be opened as clicking sound
        try{
            URL clickingResource= getClass().getResource("Media/switch1.wav");//using getClass().getResource() to open a classPath file
@@ -96,6 +83,18 @@ public class StartMenu extends Pane{
        catch(Exception e){
             System.out.println(e);
        }
+       
+       logo();
+       
+       soundOnOff();
+        
+       startGameButton();
+      
+       characterSelection();
+       
+       setCharacterPreview();//sets the character preview object to the current characters selected state
+       
+       super.getChildren().add(apane);       
        
     }
     
@@ -382,4 +381,3 @@ public class StartMenu extends Pane{
     
    
 }
-
