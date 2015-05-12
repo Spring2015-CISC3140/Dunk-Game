@@ -41,10 +41,10 @@ public class CharacterDunked extends Pane{
                 characterView.setFitWidth(character.getWidth()*0.9);                
             }
             if(trustee){
-                character=new Image(getClass().getResource("Media/Trustee_dunked.png").toExternalForm());
+                character=new Image(getClass().getResource("Media/Trustee_Dunked3.png").toExternalForm());
                 characterView=new ImageView(character);
-                characterView.setFitHeight(character.getHeight()*0.5);
-                characterView.setFitWidth(character.getWidth()*0.5);                
+                characterView.setFitHeight(character.getHeight()*0.4);
+                characterView.setFitWidth(character.getWidth()*0.4);                
             }
             super.getChildren().add(characterView);
         }
