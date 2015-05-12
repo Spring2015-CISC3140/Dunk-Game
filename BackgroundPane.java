@@ -101,7 +101,10 @@ public class BackgroundPane extends Pane {
         }        
         
         try{//load image of a splash be displayed, and that will grow when game is won
-            splashImage=new Image(getClass().getResource("Media/Splash2.png").toExternalForm());
+            if(trustee)
+                splashImage=new Image(getClass().getResource("Media/Splash3.png").toExternalForm());    
+            else
+                splashImage=new Image(getClass().getResource("Media/Splash2.png").toExternalForm());
         }catch(Exception e){
             System.out.println(e);
         }
