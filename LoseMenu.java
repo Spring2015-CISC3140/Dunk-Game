@@ -100,7 +100,7 @@ public class LoseMenu extends Pane {
         StackPane banner = new StackPane();
         Label youWon = new Label("YOU LOST");
         youWon.setStyle("-fx-font-family: Sigmar+One; -fx-font-size: 50;");
-        youWon.setTextFill(Color.BLUE);
+        youWon.setTextFill(Color.RED);
         Image splash = new Image("http://www.clker.com/cliparts/o/P/T/3/R/W/blue-water-splash-few-more-drops-hi.png");
         ImageView splashView = new ImageView(splash);
         splashView.setFitHeight(100);
